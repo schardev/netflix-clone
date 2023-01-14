@@ -1,0 +1,7 @@
+@use "mixins" as m;
+
+:export {
+  @each $name, $query in m.$media-queries {
+    #{$name}: $query;
+  }
+}

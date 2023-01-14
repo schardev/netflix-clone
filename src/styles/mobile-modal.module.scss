@@ -1,0 +1,128 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+.modal-container {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-height: 50vh;
+  padding: 1rem;
+  background-color: hsl(0, 0%, 15%);
+  border-top-left-radius: $border-radius-4;
+  border-top-right-radius: $border-radius-4;
+  box-shadow: 0px -10px 50px 0px #000;
+
+  span {
+    color: var(--color-secondary);
+  }
+}
+
+.modal-info {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 1em;
+  font-size: var(--fs-min--1);
+
+  img {
+    height: 100%;
+    object-fit: cover;
+    border-radius: $border-radius-2;
+  }
+
+  &__details {
+    h4 {
+      font-size: var(--step-0);
+      width: calc(100% - 1.5em); // to avoid overlapping the close icon
+    }
+
+    p {
+      overflow-y: scroll;
+      height: 12ch;
+    }
+
+    span + span {
+      margin-left: 1em;
+    }
+  }
+}
+
+.modal-menu {
+  margin: 1rem 0;
+
+  button {
+    border: none;
+    background-color: transparent;
+  }
+
+  span {
+    display: inline-block;
+    margin-top: 1em;
+    user-select: none;
+  }
+
+  ul {
+    display: flex;
+    justify-content: space-around;
+    padding: 0 1.5rem;
+    font-size: var(--fs-min--2);
+
+    li {
+      text-align: center;
+
+      // Play button
+      &:first-child {
+        div {
+          background-color: var(--color-primary);
+
+          svg {
+            fill: black;
+          }
+        }
+      }
+    }
+  }
+}
+
+.modal-more a {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-top: 1px solid var(--color-secondary);
+  padding: 0.5rem 1rem 0;
+  margin-inline: -1rem;
+  text-decoration: none;
+  color: inherit;
+
+  svg {
+    width: 1em;
+    height: 1em;
+  }
+
+  p + svg {
+    margin-left: auto;
+  }
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border: none;
+  background-color: transparent;
+
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+.modal-icon {
+  background-color: hsl(0, 0%, 25%);
+  border-radius: 100vh;
+  padding: 0.5rem;
+  @extend %tap-transition;
+
+  svg {
+    width: 2em;
+    height: 2em;
+  }
+}

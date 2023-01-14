@@ -1,0 +1,74 @@
+@use "mixins" as *;
+@use "variables" as *;
+
+.episode-selector {
+  margin: 0 1rem;
+  margin-bottom: 10vh; // TEMP TODO
+}
+
+.season-selector {
+  position: relative;
+  width: fit-content;
+  margin-bottom: 1em;
+
+  select {
+    background-color: #222;
+    padding: 0.5em 2em 0.5em 1em;
+    border: none;
+    border-radius: $border-radius-1;
+    appearance: none;
+  }
+
+  &::after {
+    position: absolute;
+    top: 50%;
+    right: 0.5em;
+    content: url(/arrow-right.svg);
+    transform: translateY(-50%) rotate(90deg);
+    width: 1em;
+    height: 1em;
+    pointer-events: none;
+  }
+}
+
+.episode {
+  &:not(:last-of-type) {
+    margin-bottom: 2em;
+  }
+
+  p,
+  span {
+    font-size: var(--step--1);
+    color: #999;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin-bottom: 0.5em;
+    $img-width: clamp(6rem, 30vw, 20rem);
+
+    &--img {
+      position: relative;
+      flex-shrink: 0;
+      width: $img-width;
+      aspect-ratio: 1920 / 1080;
+
+      :global(.shimmer) {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+
+      img {
+        border-radius: $border-radius-1;
+      }
+    }
+
+    h3 {
+      color: hsl(0, 0%, 90%);
+      font-size: var(--step--1);
+    }
+  }
+}

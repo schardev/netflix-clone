@@ -1,0 +1,17 @@
+@use "sass:math";
+
+/* Truncate float values */
+@function to-fixed($float, $digits: 2) {
+  $pow: math.pow(10, $digits);
+  @return math.div(math.round($float * $pow), $pow);
+}
+
+/* Removes unit from css value */
+@function strip-unit($value) {
+  @return math.div($value, ($value * 0 + 1));
+}
+
+/* Converts px value to rem */
+@function rem($px-value) {
+  @return math.div(strip-unit($px-value), 16) * 1rem;
+}

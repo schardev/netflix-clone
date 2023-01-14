@@ -1,0 +1,128 @@
+@use "mixins" as *;
+
+.banner-container {
+  position: relative;
+  height: 60vh;
+  margin-bottom: 1.5em;
+}
+
+.banner-img {
+  @include flex-center(column);
+  position: relative;
+  height: 100%;
+
+  &::before {
+    position: absolute;
+    inset: 0;
+    content: "";
+    background-image: linear-gradient(to top, #000, rgba(0, 0, 0, 0.25) 30%);
+  }
+
+  :global(.shimmer) {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__backdrop {
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.banner-info {
+  @include flex-center(column);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 0 1rem;
+
+  h1 {
+    text-align: center;
+  }
+
+  > *:not(:first-child) {
+    margin-top: 1em;
+  }
+
+  &__logo {
+    width: 50%;
+  }
+
+  &__genre {
+    display: flex;
+    gap: 0.5em;
+    font-size: var(--fs-min--2);
+
+    li:not(:first-child)::before {
+      // We aren't using list-style-type because firefox and chrome has
+      // inconsistent spacing between letter and list-style-type character
+      content: "•"; // U+2022
+      letter-spacing: 0.5em;
+      color: var(--color-accent);
+    }
+  }
+}
+
+.banner-menu {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 80%;
+  font-size: var(--fs-min--1);
+  user-select: none;
+
+  li {
+    @extend %tap-transition;
+
+    button {
+      display: flex;
+      gap: 0.5em;
+      padding: 0.5em 1em;
+      border: none;
+      background-color: transparent;
+    }
+
+    // Play Button
+    &:nth-child(2) button {
+      color: black;
+      background-color: white;
+      border-radius: 5px;
+
+      svg {
+        fill: currentColor;
+      }
+    }
+  }
+}
+
+.banner-shimmer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 60vh;
+  margin-bottom: 1.5em;
+
+  &::before {
+    position: absolute;
+    inset: 0;
+    content: "";
+    background-image: linear-gradient(to top, #000, rgba(0, 0, 0, 0.25) 30%);
+  }
+
+  div:nth-child(1) {
+    position: absolute;
+    bottom: 50px;
+    min-height: 50px;
+    min-width: 50%;
+  }
+
+  div:nth-child(2) {
+    position: absolute;
+    bottom: 10px;
+    min-height: 30px;
+    min-width: 60%;
+  }
+}

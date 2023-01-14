@@ -1,0 +1,113 @@
+@use "sass:math";
+@use "sass:map";
+@use "./variables" as *;
+@use "utils" as util;
+
+%tap-transition {
+  transition: transform 100ms ease-in-out;
+
+  &:active:hover {
+    transform: scale(0.9) translateZ(0px);
+  }
+}
+
+@mixin flex-center($flow: row) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @if $flow == "column" {
+    flex-direction: column;
+  }
+}
+
+@mixin absolute-center($pos: xy) {
+  position: absolute;
+
+  @if $pos == "x" {
+    left: 50%;
+    transform: translateX(-50%);
+  } @else if $pos == "y" {
+    top: 50%;
+    transform: translateY(-50%);
+  } @else {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@mixin for-small-phone-only {
+  @media (max-width: $width-xs) {
+    @content;
+  }
+}
+
+@mixin for-phone-only {
+  @media (max-width: $width-sm) {
+    @content;
+  }
+}
+
+@mixin for-phone-up {
+  @media (min-width: $width-sm) {
+    @content;
+  }
+}
+
+@mixin for-tablet-only {
+  @media (max-width: $width-md) {
+    @content;
+  }
+}
+
+@mixin for-tablet-up {
+  @media (min-width: $width-md) {
+    @content;
+  }
+}
+
+@mixin for-desktop-up {
+  @media (min-width: $width-lg) {
+    @content;
+  }
+}
+
+@mixin for-big-desktop-up {
+  @media (min-width: $width-xl) {
+    @content;
+  }
+}
+
+/* Ref: https://utopia.fyi/blog/clamp/ */
+@mixin generate-font-scales($font-config) {
+  $minw: util.rem(map.get($font-config, "min-vw"));
+  $maxw: util.rem(map.get($font-config, "max-vw"));
+  $minfs: util.rem(map.get($font-config, "min-fs"));
+  $maxfs: util.rem(map.get($font-config, "max-fs"));
+  $minr: map.get($font-config, "min-ratio");
+  $maxr: map.get($font-config, "max-ratio");
+  $mins: map.get($font-config, "min-step");
+  $maxs: map.get($font-config, "max-step");
+
+  @for $step from -$mins through $maxs {
+    $min-ratio: math.pow($minr, $step);
+    $max-ratio: math.pow($maxr, $step);
+
+    // round the number to 2 decimal point
+    // (https://css-tricks.com/snippets/sass/fix-number-n-digits/)
+    $final-min-size: util.to-fixed($minfs * $min-ratio, 2);
+    $final-max-size: util.to-fixed($maxfs * $max-ratio, 2);
+    --fs-min-#{$step}: #{$final-min-size};
+    --fs-max-#{$step}: #{$final-max-size};
+
+    $slope: math.div(($final-max-size - $final-min-size), ($maxw - $minw));
+    $yIntersection: (-1 * $minw * $slope) + $final-min-size;
+
+    --step-#{$step}: clamp(
+      var(--fs-min-#{$step}),
+      #{util.to-fixed($yIntersection, 2)} + #{util.to-fixed($slope * 100vw, 2)},
+      var(--fs-max-#{$step})
+    );
+  }
+}

@@ -1,0 +1,57 @@
+@use "mixins" as *;
+
+.prevent-scroll {
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  height: 100vh;
+  height: 100lvh; // backdrop should cover the largest vh available
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.spinner-container {
+  @include absolute-center;
+}
+
+.spinner {
+  width: 2.5em;
+  height: 2.5em;
+  fill: white;
+  animation: 500ms linear infinite spin;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.shimmer {
+  background-color: #222;
+  background-image: linear-gradient(to right, #222 0%, #333 40%, #222 100%);
+  background-size: 200%;
+  background-repeat: no-repeat;
+
+  border-radius: 5px;
+
+  animation-duration: 0.75s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: shimmer;
+  animation-timing-function: linear;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}

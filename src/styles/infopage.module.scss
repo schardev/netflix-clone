@@ -1,0 +1,134 @@
+@use "./mixins" as *;
+@use "variables" as *;
+
+.main {
+  margin-top: 4rem;
+}
+
+.yt-player {
+  margin-block: -4rem;
+  height: 50vh;
+  box-shadow: inset 0px 60px 0px 0px rgba(0, 0, 0, 1),
+    inset 0px -60px 0px 0px rgba(0, 0, 0, 1);
+
+  > div {
+    position: relative;
+    z-index: -1;
+  }
+}
+
+.info-section {
+  margin: 0 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #333;
+
+  > *:not(:last-child) {
+    margin-bottom: 1em;
+  }
+
+  span {
+    color: #777;
+    font-size: var(--step--1);
+  }
+
+  button {
+    border-radius: $border-radius-2;
+    border: none;
+  }
+
+  &__title {
+    span + span {
+      margin-left: 1em;
+    }
+  }
+
+  &__play-btn {
+    @include flex-center;
+    padding: 0.5rem 0;
+    width: 100%;
+    background-color: var(--color-primary);
+    color: black;
+
+    svg {
+      margin-right: 0.5em;
+      fill: currentColor;
+    }
+
+    span {
+      color: black;
+      font-weight: 500;
+    }
+  }
+
+  &__team {
+    ul {
+      white-space: nowrap;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+      text-overflow: "... more"; // firefox supports string type but others don't
+      font-size: var(--step--1);
+
+      span {
+        margin-right: 0.5em;
+      }
+
+      li {
+        display: inline;
+        margin-right: 0.5em;
+        color: #999;
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-evenly;
+
+    button {
+      @include flex-center(column);
+      background-color: transparent;
+
+      span {
+        margin-top: 0.5em;
+      }
+    }
+  }
+}
+
+.tabs-container {
+  $top-bar: 4px;
+  $button-padding-y: 1em;
+    margin-bottom: 10vh;
+
+  > ul {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+    overflow-y: scroll;
+
+    li {
+      display: inline-block;
+      padding: $button-padding-y 0;
+      font-size: var(--fs-min--1);
+      font-weight: 600;
+      white-space: nowrap;
+
+      &:global(.active) {
+        border-top: $top-bar solid var(--color-accent);
+        padding-top: calc($button-padding-y - $top-bar);
+      }
+    }
+
+    button {
+      text-transform: uppercase;
+      background-color: transparent;
+      border: none;
+    }
+  }
+}
+
+.trailers-tab {
+  margin: 0 1em;
+}

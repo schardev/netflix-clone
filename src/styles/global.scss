@@ -1,0 +1,106 @@
+@use "@saurabhcharde/reset.css";
+@use "utility-classes.scss";
+@use "./mixins" as *;
+@use "./variables" as *;
+
+:root {
+  /* Colors */
+  --color-primary: #fff;
+  --color-secondary: #737373;
+  --color-background: #000;
+  --color-accent: #e50914;
+
+  /* Fonts */
+  --ff-primary: Inter, sans-serif;
+
+  $font-config: (
+    "min-vw": $width-xs,
+    "max-vw": $width-xxl,
+    "min-fs": 16px,
+    "max-fs": 20px,
+    "min-ratio": 1.2,
+    "max-ratio": 1.333,
+    "min-step": 2,
+    "max-step": 5,
+  );
+
+  @include generate-font-scales($font-config);
+}
+
+h1 {
+  font-size: var(--step-4);
+}
+
+h2 {
+  font-size: var(--step-3);
+}
+
+h3 {
+  font-size: var(--step-2);
+}
+
+h4 {
+  font-size: var(--step-1);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: calc(2px + 2ex + 2px);
+}
+
+body {
+  background-color: var(--color-background);
+  font-family: var(--ff-primary);
+  font-size: var(--step-0);
+  color: var(--color-primary);
+  margin: 0 auto;
+
+  @include for-tablet-up {
+    font-size: var(--step-1);
+  }
+}
+
+.video-frame {
+  > *:not(:last-child) {
+    margin-bottom: 0.5em;
+  }
+
+  &:not(:last-of-type) {
+    margin-bottom: 2em;
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+    color: currentColor;
+  }
+
+  &__img {
+    position: relative;
+    aspect-ratio: 1920 / 1080;
+
+    img {
+      object-fit: cover;
+      border-radius: $border-radius-2;
+      width: 100%;
+      height: 100%;
+    }
+
+    svg {
+      @include absolute-center;
+      width: 2.5em;
+      height: 2.5em;
+      padding: 0.5em;
+      fill: currentColor;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10vh;
+    }
+  }
+
+  span {
+    display: block;
+    text-transform: capitalize;
+  }
+}
