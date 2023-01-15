@@ -48,11 +48,11 @@ const router = createBrowserRouter(
 
 const App = () => {
   return (
-    <DeviceContextProvider>
-      <ModalProvider>
-        <RouterProvider router={router} />
-      </ModalProvider>
-    </DeviceContextProvider>
+    <ModalProvider>
+      <RouterProvider router={router} />
+    </ModalProvider>
+    // <DeviceContextProvider>
+    // </DeviceContextProvider>
   );
 };
 

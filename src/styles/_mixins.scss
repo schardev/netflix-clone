@@ -37,6 +37,29 @@
   }
 }
 
+// Media queries
+$media-queries: (
+  "small-phone-only": "max-width: #{$width-xs}",
+  "phone-only": "max-width: #{$width-sm}",
+  "phone-up": "min-width: #{$width-sm}",
+  "tablet-only": "max-width: #{$width-md}",
+  "tablet-up": "min-width: #{$width-md}",
+  "desktop-only": "max-width: #{$width-lg}",
+  "desktop-up": "min-width: #{$width-lg}",
+  "big-desktop-up": "min-width: #{$width-xl}"
+);
+
+@mixin for($query) {
+  $_query: map.get($media-queries, $query);
+  @if $_query == null {
+    @error "Invalid query!";
+  } @else {
+    @media ($_query) {
+      @content;
+    }
+  }
+}
+
 @mixin for-small-phone-only {
   @media (max-width: $width-xs) {
     @content;

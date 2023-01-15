@@ -4,31 +4,60 @@
 
 .header {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+
   font-size: var(--step--1);
   padding: 1rem;
-  max-width: $width-xxl;
+  // max-width: $width-xxl;
   margin: 0 auto;
   transition: background-color 200ms ease, backdrop-filter 300ms ease;
-
-  @include for-phone-only {
-    position: fixed;
-    top: 0;
-    z-index: 1;
-    width: 100%;
-  }
+  background: linear-gradient(
+    to bottom,
+    hsla(var(--color-background-values), 0.7),
+    transparent
+  );
 
   @include for-tablet-up {
-    padding: 1.5rem;
+    left: 0;
+    right: 0;
+    padding: 0.75rem 4vw;
   }
+}
+
+.nav-left {
+  display: flex;
+  gap: 2em;
+  margin-right: auto;
+
+  &__list {
+    display: inline-flex;
+    gap: 1em;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+
+      &:global(.active) {
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.nav-right {
+  color: white;
 }
 
 .nf-logo {
   margin-right: auto;
 
   img {
-    width: clamp(5rem, 20vw, 10rem);
+    width: clamp(5rem, 6vw, 10rem);
   }
 }
 
@@ -52,6 +81,10 @@
     background-color: transparent;
     padding: 0.2rem 0.5rem 0.2rem 1.25rem;
   }
+
+  @include for-tablet-up {
+    display: inline-block;
+  }
 }
 
 .sign-in-btn {
@@ -67,7 +100,8 @@
   padding: 0.5em;
 }
 
+// TODO: check perf
 .header-blur {
-  background-color: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(10px);
+  background-color: hsla(var(--color-background-values), 0.85);
+  backdrop-filter: blur(5px);
 }

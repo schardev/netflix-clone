@@ -8,8 +8,16 @@
   gap: 1rem;
   padding: 0 1rem;
 
+  @include for-tablet-up {
+    padding: 0 1rem 0 4vw;
+  }
+
   &:not(:last-of-type) {
     margin-bottom: 1.5rem;
+
+    @include for-tablet-up {
+      margin-bottom: 5vh;
+    }
   }
 
   &:last-of-type {
@@ -19,6 +27,11 @@
   h2 {
     text-transform: capitalize;
     font-size: var(--step-1);
+
+    @include for-tablet-up {
+      font-size: var(--step-0);
+      font-weight: 600;
+    }
   }
 
   &__slider {
@@ -27,8 +40,7 @@
 
     div[data-item-id] {
       position: relative;
-      min-height: 192px;
-      max-height: 200px;
+      min-height: 195px;
       @extend %tap-transition;
 
       :global(.shimmer) {
@@ -52,9 +64,15 @@
 }
 
 .column-grid {
-  grid-auto-columns: clamp(8rem, 14vw, 12rem);
+  grid-auto-columns: clamp(8rem, 12vw, 12rem);
   grid-auto-flow: column;
   overflow-x: scroll;
+
+  @include for-tablet-up {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }
 
 .row-grid {

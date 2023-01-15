@@ -5,10 +5,16 @@
 
 :root {
   /* Colors */
-  --color-primary: #fff;
-  --color-secondary: #737373;
-  --color-background: #000;
-  --color-accent: #e50914;
+  --color-primary: hsl(0, 0%, 100%);
+  --color-secondary: hsl(0, 0%, 75%);
+  --color-background: hsl(0, 0%, 0%);
+  --color-background-values: 0, 0%, 0%;
+  --color-accent: hsl(357, 92%, 47%);
+
+  @include for-tablet-up {
+    --color-background: hsl(0, 0%, 8%);
+    --color-background-values: 0, 0%, 8%;
+  }
 
   /* Fonts */
   --ff-primary: Inter, sans-serif;

@@ -16,7 +16,7 @@ const YouTubeIFrame = forwardRef<ReactPlayer, YouTubeIFrameProps>(
     // https://github.com/cookpete/react-player/issues/1119
     const videoURL = YT_URL + videoKey;
     return (
-      <div className={styles["yt-player"]}>
+      <div className="yt-player">
         {/* https://stackoverflow.com/questions/48399390/youtube-embed-autoplay-on-mobile */}
         <ReactPlayer
           ref={ref}
@@ -26,8 +26,10 @@ const YouTubeIFrame = forwardRef<ReactPlayer, YouTubeIFrameProps>(
           config={{
             youtube: {
               playerVars: {
-                modestbranding: 1,
-                iv_load_policy: 3,
+                autoplay: 1, // autoplay, but only works on desktop
+                modestbranding: 1, // prevent the YouTube logo from displaying in the control bar
+                iv_load_policy: 3, // disable video annotations
+                rel: 0, // only show related videos from the channel only
               },
             },
           }}

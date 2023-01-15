@@ -3,17 +3,17 @@
 
 .main {
   margin-top: 4rem;
-}
 
-.yt-player {
-  margin-block: -4rem;
-  height: 50vh;
-  box-shadow: inset 0px 60px 0px 0px rgba(0, 0, 0, 1),
-    inset 0px -60px 0px 0px rgba(0, 0, 0, 1);
+  :global(.yt-player) {
+    margin-block: -4rem;
+    height: 50vh;
+    box-shadow: inset 0px 60px 0px 0px rgba(0, 0, 0, 1),
+      inset 0px -60px 0px 0px rgba(0, 0, 0, 1);
 
-  > div {
-    position: relative;
-    z-index: -1;
+    > div {
+      position: relative;
+      z-index: -1;
+    }
   }
 }
 
@@ -98,7 +98,7 @@
 .tabs-container {
   $top-bar: 4px;
   $button-padding-y: 1em;
-    margin-bottom: 10vh;
+  margin-bottom: 10vh;
 
   > ul {
     display: flex;
