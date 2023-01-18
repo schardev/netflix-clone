@@ -25,14 +25,16 @@ type SliderProps = {
   flow?: "row" | "column";
 } & SliderQueries;
 
-// Currently handled endpoints:
-// - movie/{popular,etc} --> MovieListResponse
-// - tv/{popular.etc} --> TVListResponse
-// - discover/movie --> MovieListResponse
-// - discover/tv --> TVListResponse
-// - search/movie --> MovieListResponse
-// - search/tv --> TVListResponse
-// - search/multi --> ListResponseWithMedia<MovieListResponse | TVListResponse | PersonListResponse>
+/*
+  Currently handled endpoints:
+- movie/{popular,etc} --> MovieListResponse
+- tv/{popular.etc} --> TVListResponse
+- discover/movie --> MovieListResponse
+- discover/tv --> TVListResponse
+- search/movie --> MovieListResponse
+- search/tv --> TVListResponse
+- search/multi --> ListResponseWithMedia<MovieListResponse | TVListResponse | PersonListResponse>
+*/
 const Slider = ({ title, endpoint, flow, params }: SliderProps) => {
   const searchParams = new URLSearchParams(params as any).toString();
   const matches = useMediaQuery("phone-only");
