@@ -2,13 +2,22 @@ import { Search } from "iconoir-react";
 import { useEffect, useRef } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import useMediaQuery from "../hooks/useMediaQuery";
+import { movieGenreEntries, tvGenreEntries } from "../pages/GenresModal";
 import styles from "../styles/header.module.scss";
+
+const navLinks = [
+  { text: "Home", to: "/" },
+  { text: "TV Shows", to: "/tv" },
+  { text: "Movies", to: "/movie" },
+  { text: "My List", to: "/list" },
+];
 
 const Header = () => {
   const headerRef = useRef<HTMLElement>(null);
   const isLandingPage = useLocation().pathname.slice(1) === "login";
   const navigate = useNavigate();
   const matches = useMediaQuery("tablet-up");
+  const popRef = useRef<HTMLDivElement>(null);
 
   const scrollHandler = () => {
     if (headerRef.current && window.scrollY > 30) {
@@ -29,12 +38,45 @@ const Header = () => {
         <Link to="/" className={styles["nf-logo"]}>
           <img src="/logo.svg" alt="netflix logo" />
         </Link>
-        {(matches && !isLandingPage) && (
+        {matches && !isLandingPage && (
           <ul className={styles["nav-left__list"]}>
-            <li><NavLink to="/">Home</NavLink></li>
-            <li><NavLink to="/tv">TV Shows</NavLink></li>
-            <li><NavLink to="/movie">Movies</NavLink></li>
-            <li><NavLink to="/list">My List</NavLink></li>
+            {navLinks.map((link) => (
+              <li key={link.text}>
+                <NavLink to={link.to}>{link.text}</NavLink>
+              </li>
+            ))}
+            <li>
+              <div
+                className={styles.genre}
+                onMouseOver={() => {
+                  if (popRef.current) {
+                    popRef.current.style.display = "block";
+                  }
+                }}
+                onMouseLeave={() => {
+                  setTimeout(() => {
+                    if (popRef.current && !popRef.current.matches(":hover")) {
+                      popRef.current.style.display = "none";
+                    }
+                  }, 300);
+                }}>
+                <span>Browse By Genres</span>
+                <div className={styles["genre-popup"]} ref={popRef}>
+                  {[movieGenreEntries, tvGenreEntries].map((genre) => (
+                    <div key={genre.title}>
+                      <span>{genre.title}</span>
+                      <ul>
+                        {genre.list.map((link) => (
+                          <li key={link.text}>
+                            <Link to={link.link}>{link.text}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </li>
           </ul>
         )}
       </div>

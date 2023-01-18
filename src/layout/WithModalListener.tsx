@@ -1,9 +1,11 @@
+import { useRef } from "react";
 import { Outlet } from "react-router-dom";
 import ModalListener from "../components/ModalListener";
 import { ModalCategory, useModalDispatcher } from "../contexts/ModalContext";
 
 const WithModalListener = () => {
   const setModalData = useModalDispatcher();
+  const timerIdRef = useRef<number>();
 
   const handleCardClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
     const target = (e.target as HTMLElement).closest(

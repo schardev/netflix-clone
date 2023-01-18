@@ -21,19 +21,24 @@ const List = () => {
           </button>
         </div>
       ) : (
-        <div className={styles.list}>
-          {/* https://stackoverflow.com/a/59459000 */}
-          {myList.map((item) => {
-            return (
-              <div
-                key={item.id}
-                data-item-id={item.id}
-                data-item-category={item.media_type}>
-                <img src={item.poster_path} />
-              </div>
-            );
-          })}
-        </div>
+        <>
+          <main className={styles.main}>
+            <h1>My List</h1>
+            <div className={styles.slider}>
+              {/* https://stackoverflow.com/a/59459000 */}
+              {myList.map((item) => {
+                return (
+                  <div
+                    key={item.id}
+                    data-item-id={item.id}
+                    data-item-category={item.media_type}>
+                    <img src={item.poster_path} />
+                  </div>
+                );
+              })}
+            </div>
+          </main>
+        </>
       )}
     </>
   );

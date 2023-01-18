@@ -6,7 +6,8 @@ import {
   SoundHigh,
   SoundOff,
 } from "iconoir-react";
-import { PropsWithChildren, useState } from "react";
+import { PropsWithChildren, useRef, useState } from "react";
+import type ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
 import { useModalDispatcher } from "../contexts/ModalContext";
 import { useMyListData, useMyListDispatcher } from "../contexts/MyListProvider";
@@ -59,6 +60,7 @@ const Banner = ({
   const navigate = useNavigate();
   const matches = useMediaQuery("tablet-up");
   const [muted, setIsMuted] = useState(true);
+  const playerRef = useRef<ReactPlayer>(null);
   const { isLoading, data, error } = useFetch<BannerState>(
     `${endpoint}/${searchParams}/banner`,
     async ({ signal }) => {
@@ -87,9 +89,12 @@ const Banner = ({
     }
   );
 
-  if (error) console.error(error);
-  if (isLoading) return <BannerShimmer />;
-  if (!data) return null;
+  if (error) {
+    console.error(error);
+    return null;
+  }
+
+  if (!data || isLoading) return <BannerShimmer />;
 
   let title: string;
   if (category === "movie") {
@@ -99,8 +104,7 @@ const Banner = ({
   }
 
   let logoPath: string | null = null;
-  // TODO: data.images maybe null
-  if (data?.images?.logos && data.images.logos[0]) {
+  if (data?.images.logos && data.images.logos[0]) {
     logoPath = data.images.logos[0].file_path!;
   }
 
@@ -111,14 +115,15 @@ const Banner = ({
     return false;
   });
 
-  // let videos = data.videos.results!.length >= 1 ? data.videos?.results : null;
+  let videos = data.videos.results!.length >= 1 ? data.videos?.results : null;
+  videos = null; // TEMP TODO, aslo use a sliht delay to show banner video
 
   return (
     <div className={styles["banner-container"]}>
-      {/* {matches && videos ? (
+      {matches && videos ? (
         <div className={styles["player"]}>
           <YouTubeIFrame
-            // ref={playerRef}
+            ref={playerRef}
             videoKey={videos[0].key}
             playing={true}
             loop={true}
@@ -133,15 +138,15 @@ const Banner = ({
             {muted ? <SoundOff /> : <SoundHigh />}
           </div>
         </div>
-      ) : ( */}
-      <div className={j(styles["banner-img"])}>
-        <ShimmerImg
-          className={styles["banner-img__backdrop"]}
-          src={api.getBackdropURL(data.backdrop_path, "w1280")}
-          alt={(data as any).title || (data as any).name}
-        />
-      </div>
-      {/* )} */}
+      ) : (
+        <div className={j(styles["banner-img"])}>
+          <ShimmerImg
+            className={styles["banner-img__backdrop"]}
+            src={api.getBackdropURL(data.backdrop_path, "w1280")}
+            alt={(data as any).title || (data as any).name}
+          />
+        </div>
+      )}
       <div className={styles["banner-info"]}>
         {logoPath ? (
           <img

@@ -22,6 +22,10 @@
 
   &:last-of-type {
     margin-bottom: 10vh; // make some room for the navbar
+
+    @include for-tablet-up {
+      margin-bottom: 5vh;
+    }
   }
 
   h2 {
@@ -40,7 +44,7 @@
 
     div[data-item-id] {
       position: relative;
-      min-height: 195px;
+      min-height: 185px;
       @extend %tap-transition;
 
       :global(.shimmer) {
@@ -64,7 +68,7 @@
 }
 
 .column-grid {
-  grid-auto-columns: clamp(8rem, 12vw, 12rem);
+  grid-auto-columns: var(--grid-column-size);
   grid-auto-flow: column;
   overflow-x: scroll;
 
@@ -76,5 +80,8 @@
 }
 
 .row-grid {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--grid-column-size), 1fr)
+  );
 }

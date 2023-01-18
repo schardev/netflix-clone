@@ -14,9 +14,11 @@
 }
 
 .player {
+  @include flex-center;
   position: relative;
   width: 100%;
   height: 100%;
+  overflow: hidden; // since the player's aspect ratio is huge intentionally
 
   &-control {
     position: absolute;
@@ -35,9 +37,8 @@
 
   :global(.yt-player) {
     position: relative;
-    width: 100%;
-    height: 100vh;
-    margin-block: -10vh;
+    aspect-ratio: 1920/1080;
+    height: 140vh; // just a workaround to hide those black bars and youtube-y stuff
 
     &::before {
       position: absolute;

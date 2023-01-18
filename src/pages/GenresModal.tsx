@@ -6,7 +6,7 @@ const splitJoin = (str: string) => {
   return str.split("_").join(" ").toLowerCase();
 };
 
-const movieGenreEntries = {
+export const movieGenreEntries = {
   title: "MOVIES",
   list: Object.entries(MOVIE_GENRE).map((genre) => {
     return {
@@ -16,7 +16,7 @@ const movieGenreEntries = {
   }),
 };
 
-const tvGenreEntries = {
+export const tvGenreEntries = {
   title: "TV",
   list: Object.entries(TV_GENRE).map((genre) => {
     return {

@@ -1,18 +1,31 @@
 @use "mixins" as *;
 @use "variables" as *;
 
-.list {
+.main {
+  margin: 10vh 1em 0;
+
+  @include for-tablet-up {
+    margin: 10vh 4vw 0;
+  }
+
+  h1 {
+    font-size: var(--step-2);
+    font-weight: 400;
+  }
+}
+
+.slider {
   display: grid;
-  grid-auto-columns: clamp(8rem, 14vw, 12rem);
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--grid-column-size), 1fr)
+  );
   gap: 0.5rem;
-  margin-top: 7vh;
-  padding: 0 1em;
+  margin-top: 2em;
 
   div[data-item-id] {
     position: relative;
-    min-height: 192px;
-    max-height: 200px;
+    min-height: 185px;
     @extend %tap-transition;
 
     :global(.shimmer) {
@@ -34,6 +47,7 @@
   gap: 2em;
   margin: 0 1em;
   min-height: 100vh;
+  font-size: var(--step-0);
 
   p {
     text-align: center;

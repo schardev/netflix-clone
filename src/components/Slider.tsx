@@ -1,5 +1,5 @@
-import { useDeviceContext } from "../contexts/DeviceContext";
 import useFetch from "../hooks/useFetch";
+import useMediaQuery from "../hooks/useMediaQuery";
 import { api } from "../lib/tmdb";
 import styles from "../styles/slider.module.scss";
 import type {
@@ -35,7 +35,7 @@ type SliderProps = {
 // - search/multi --> ListResponseWithMedia<MovieListResponse | TVListResponse | PersonListResponse>
 const Slider = ({ title, endpoint, flow, params }: SliderProps) => {
   const searchParams = new URLSearchParams(params as any).toString();
-  const device = useDeviceContext();
+  const matches = useMediaQuery("phone-only");
   const { data, error } = useFetch<
     MovieListResponse | TVListResponse | PersonListResponse
   >(`${endpoint}/${searchParams}/slider`, ({ signal }) => {
@@ -88,10 +88,7 @@ const Slider = ({ title, endpoint, flow, params }: SliderProps) => {
 
             // Lazily load images that are out of viewport
             let loading: "eager" | "lazy" = "eager";
-            if (
-              ((device === "mobile" && idx > 4) || idx > 7) &&
-              flow !== "row"
-            ) {
+            if (((matches && idx > 4) || idx > 7) && flow !== "row") {
               loading = "lazy";
             }
 

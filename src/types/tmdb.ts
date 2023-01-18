@@ -387,3 +387,11 @@ export interface TVContentRatings {
     rating?: string;
   }[];
 }
+
+export interface ContentRatings {
+  results: {
+    iso_3166_1: string;
+    rating: string;
+  }[];
+  id: number;
+}

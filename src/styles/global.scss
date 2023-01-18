@@ -10,6 +10,7 @@
   --color-background: hsl(0, 0%, 0%);
   --color-background-values: 0, 0%, 0%;
   --color-accent: hsl(357, 92%, 47%);
+  --grid-column-size: clamp(7rem, 12vw, 12rem);
 
   @include for-tablet-up {
     --color-background: hsl(0, 0%, 8%);

@@ -4,7 +4,6 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import DeviceContextProvider from "./contexts/DeviceContext";
 import WithLayoutAnimation from "./layout/WithLayoutAnimation";
 import WithHeader from "./layout/WithHeader";
 import WithModalListener from "./layout/WithModalListener";
@@ -51,8 +50,6 @@ const App = () => {
     <ModalProvider>
       <RouterProvider router={router} />
     </ModalProvider>
-    // <DeviceContextProvider>
-    // </DeviceContextProvider>
   );
 };
 
