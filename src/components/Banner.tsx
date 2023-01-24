@@ -9,7 +9,7 @@ import {
 import { PropsWithChildren, useRef, useState } from "react";
 import type ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
-import { useModalDispatcher } from "../contexts/ModalContext";
+import { ModalCategory, useModalDispatcher } from "../contexts/ModalContext";
 import { useMyListData, useMyListDispatcher } from "../contexts/MyListProvider";
 import useFetch from "../hooks/useFetch";
 import useMediaQuery from "../hooks/useMediaQuery";
@@ -162,7 +162,9 @@ const Banner = ({
         ) : (
           <ul className={styles["banner-info__genre"]}>
             {data.genres?.map((genre) => (
-              <li key={genre.id}>{genre.name}</li>
+              <li key={genre.id}>
+                <span>{genre.name}</span>
+              </li>
             ))}
           </ul>
         )}
@@ -199,7 +201,8 @@ const Banner = ({
                 setModalState({
                   visible: true,
                   id: data.id!,
-                  category: category as "movie" | "tv",
+                  category: category as ModalCategory,
+                  expanded: true
                 })
               }>
               <InfoEmpty />

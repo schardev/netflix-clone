@@ -2,14 +2,19 @@
 @use "variables" as *;
 
 .episode-selector {
-  margin: 0 1rem;
+  // margin: 0 1rem; // TODO don't add 'external' styles
   margin-bottom: 10vh; // TEMP TODO
+
+  &__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+  }
 }
 
 .season-selector {
   position: relative;
   width: fit-content;
-  margin-bottom: 1em;
 
   select {
     background-color: #222;
@@ -47,7 +52,7 @@
     align-items: center;
     gap: 1em;
     margin-bottom: 0.5em;
-    $img-width: clamp(6rem, 30vw, 20rem);
+    $img-width: clamp(6rem, 30%, 12rem);
 
     &--img {
       position: relative;

@@ -4,13 +4,7 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { movieGenreEntries, tvGenreEntries } from "../pages/GenresModal";
 import styles from "../styles/header.module.scss";
-
-const navLinks = [
-  { text: "Home", to: "/" },
-  { text: "TV Shows", to: "/tv" },
-  { text: "Movies", to: "/movie" },
-  { text: "My List", to: "/list" },
-];
+import { navLinks } from "./MobileNav";
 
 const Header = () => {
   const headerRef = useRef<HTMLElement>(null);

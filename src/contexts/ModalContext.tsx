@@ -18,6 +18,7 @@ export type ModalData =
       id: number;
       x?: number;
       y?: number;
+      expanded?: boolean;
     }
   | { visible: true; category: "list" }
   | null;

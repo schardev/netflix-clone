@@ -1,56 +1,17 @@
-.modal-container {
+@use "mixins" as *;
+@use "variables" as *;
+
+.mini-modal-container {
   position: absolute;
   width: clamp(10rem, 30vw, 30rem);
   border-radius: 5px;
-  box-shadow: 0 0 10px 2px hsl(0,0,0,0.7);
+  box-shadow: 0 0 10px 2px hsl(0, 0%, 0%, 0.7);
   overflow-y: hidden;
 }
 
-.modal-info {
-  padding: 0.7em;
-  background-color: var(--color-background);
-
-  &__genre {
-    display: flex;
-    gap: 0.5em;
-    font-size: var(--fs-max--2);
-    margin-top: 0.2em;
-
-    li:not(:first-child)::before {
-      // We aren't using list-style-type because firefox and chrome has
-      // inconsistent spacing between letter and list-style-type character
-      content: "•"; // U+2022
-      letter-spacing: 0.5em;
-      color: var(--color-accent);
-    }
-  }
-
-  &__details {
-    margin-top: 0.5em;
-
-    h2 {
-      font-size: var(--step-0);
-    }
-
-    span {
-      font-size: var(--fs-max--1);
-    }
-
-    span + span {
-      margin: 0.5em;
-    }
-  }
-}
-
-.small-modal-menu {
-  ul {
-    display: flex;
-    gap: 0.5rem;
-
-    li:last-child {
-      margin-left: auto;
-    }
-  }
+.mini-modal-menu {
+  display: flex;
+  gap: 0.5rem;
 
   button {
     border-radius: 100vh;
@@ -59,17 +20,64 @@
     padding: 0.3em;
 
     svg {
-      width: 1.2em;
-      height: 1.2em;
+      width: 1em;
+      height: 1em;
     }
   }
 
-  .ply-btn {
+  button:last-of-type {
+    margin-left: auto;
+  }
+
+  .play-btn {
     border: 2px solid white;
-    background: white;
+    background-color: white;
 
     svg {
       fill: black;
+    }
+  }
+}
+
+.mini-modal-info-container {
+  padding: 0.7em;
+  background-color: var(--color-background);
+
+  > *:not(:last-child) {
+    margin-bottom: 0.5em;
+  }
+
+  .details {
+    line-height: 1.2;
+
+    h2 {
+      font-size: var(--step-0);
+    }
+
+    p {
+      font-size: var(--step-0);
+    }
+
+    span {
+      font-size: var(--step--1);
+    }
+
+    span + span {
+      margin-left: 0.5em;
+    }
+  }
+
+  .genres {
+    $gap: 0.5em;
+    display: flex;
+    gap: $gap;
+    flex-wrap: wrap;
+    font-size: var(--step--2);
+
+    span:not(:first-child)::before {
+      content: "•";
+      letter-spacing: $gap; // letter-spacing and flex gap have to be same for consistent spacing
+      color: var(--color-accent);
     }
   }
 }
@@ -86,7 +94,6 @@
 }
 
 .player {
-  // aspect-ratio: 1920/1080;
   aspect-ratio: 1;
   margin-block: -20%;
   position: relative;
@@ -96,18 +103,196 @@
     height: 100%;
   }
 
-  &-control {
+  &-controls {
+    @include flex-center;
     position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     bottom: 25%;
-    right: 5px;
-    border: 1px solid #999;
+    width: 95%;
+  }
+
+  &-menu {
+    display: flex;
+    gap: 0.5em;
+    flex: 1;
+
+    button {
+      font-size: var(--fs-max-0);
+      background: transparent;
+      border: none;
+    }
+
+    button + button {
+      border: 1px solid #999;
+      border-radius: 100vh;
+      padding: 0.3em;
+    }
+  }
+
+  .play-btn {
+    @include flex-center; // TODO common banner btn style
+    gap: 0.2em;
+    background: white;
+    color: black;
+    border-radius: 5px;
+    padding: 0 1em;
+
+    span {
+      font-weight: 600;
+    }
+
+    svg {
+      fill: currentColor;
+    }
+  }
+
+  .mute-btn {
+    margin-left: auto;
+    background: transparent;
+    border: 2px solid #999;
     border-radius: 100vh;
-    opacity: 0.7;
     padding: 0.3em;
+    opacity: 0.7;
+    transition: opacity 200ms ease-in, background-color 200ms ease-in;
+
+    &:hover {
+      opacity: 1;
+      background-color: hsl(0, 0%, 0%, 0.55);
+    }
 
     svg {
       width: 1em;
       height: 1em;
+    }
+  }
+}
+
+.backdrop {
+  overflow-y: scroll;
+}
+
+.big-modal-container {
+  position: absolute;
+  top: 10vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp($width-md, 75vw, $width-lg);
+  border-radius: 5px;
+  overflow-y: hidden;
+  padding-bottom: 5vh;
+
+  .player {
+    margin-block: -22%;
+
+    &-controls {
+      width: calc(100% - 2 * min(4rem, 4vw));
+    }
+  }
+}
+
+.big-modal-info-container {
+  padding: 1rem min(4rem, 4vw) min(4rem, 4vw); // TODO: I'm an idiot
+  background-color: var(--color-background);
+
+  > *:not(:last-child) {
+    margin-bottom: 4rem;
+  }
+}
+
+.big-modal-info-details {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1em;
+
+  &__left {
+    grid-column: 1 / 4;
+
+    h2 {
+      font-size: var(--step-1);
+    }
+
+    span {
+      font-size: var(--step--1);
+    }
+
+    span + span {
+      margin-left: 0.5em;
+    }
+
+    p {
+      margin-top: 1em;
+      font-size: var(--step--1);
+    }
+  }
+
+  &__right {
+    font-size: var(--step--1);
+
+    > *:not(:last-child) {
+      margin-bottom: 1em;
+    }
+
+    span.title {
+      color: #777;
+    }
+  }
+}
+
+.big-modal-info-about {
+  font-size: var(--step--1);
+
+  h2 {
+    font-size: var(--step-0);
+    font-weight: 400;
+    span {
+      font-weight: 600;
+    }
+  }
+
+  > *:not(:last-child) {
+    margin-bottom: 1em;
+  }
+
+  .title {
+    color: #777;
+  }
+}
+
+.sections {
+  background-color: var(--color-background);
+
+  h2 {
+    font-size: var(--step-0);
+    margin-bottom: 1em;
+  }
+
+  .episodes-section {
+    form {
+      margin-left: auto;
+      font-size: var(--fs-max-0);
+    }
+  }
+
+  .recommendation-section {
+    section {
+      padding: 0;
+    }
+  }
+
+  .trailers-section {
+    .video-frames {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 1em 0.5em;
+      // align-items: center;
+
+      :global(.video-frame) {
+        margin: 0;
+        span {
+          font-size: var(--step--1);
+        }
+      }
     }
   }
 }

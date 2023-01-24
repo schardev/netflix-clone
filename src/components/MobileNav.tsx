@@ -3,44 +3,29 @@ import { NavLink } from "react-router-dom";
 import { useModalDispatcher } from "../contexts/ModalContext";
 import styles from "../styles/mobile-nav.module.scss";
 
+export const navLinks = [
+  { text: "Home", to: "/", icon: <HomeSimple /> },
+  { text: "TV Shows", to: "/tv", icon: <Tv /> },
+  { text: "Movies", to: "/movie", icon: <CinemaOld /> },
+  { text: "My List", to: "/list", icon: <List /> },
+];
+
 const MobileNav = () => {
   const setModalData = useModalDispatcher();
 
   return (
     <nav className={styles["mobile-nav"]}>
       <ul>
-        <li>
-          <button>
-            <NavLink to="/" end>
-              <HomeSimple />
-              <span>Home</span>
-            </NavLink>
-          </button>
-        </li>
-        <li>
-          <button>
-            <NavLink to="tv">
-              <Tv />
-              <span>TV Shows</span>
-            </NavLink>
-          </button>
-        </li>
-        <li>
-          <button>
-            <NavLink to="movie">
-              <CinemaOld />
-              <span>Movies</span>
-            </NavLink>
-          </button>
-        </li>
-        <li>
-          <button>
-            <NavLink to="list">
-              <List />
-              <span>My List</span>
-            </NavLink>
-          </button>
-        </li>
+        {navLinks.map((link) => (
+          <li>
+            <button>
+              <NavLink to={link.to}>
+                {link.icon}
+                <span>{link.text}</span>
+              </NavLink>
+            </button>
+          </li>
+        ))}
         <li>
           <button
             onClick={() => {

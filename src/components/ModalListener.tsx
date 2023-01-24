@@ -19,7 +19,13 @@ const ModalListener = () => {
       case "movie": {
         if (tabletUp) {
           outlet = (
-            <DesktopInfoModal category={modalData.category} id={modalData.id} x={modalData.x!} y={modalData.y!} />
+            <DesktopInfoModal
+              category={modalData.category}
+              id={modalData.id}
+              x={modalData.x!}
+              y={modalData.y!}
+              expanded={modalData.expanded}
+            />
           );
         } else {
           outlet = (

@@ -9,9 +9,11 @@ import ShimmerImg from "./ShimmerImg";
 const EpisodeSelector = ({
   id,
   seasons = 1,
+  showHeading = false,
 }: {
   id: number;
   seasons?: number;
+  showHeading?: boolean;
 }) => {
   const [searchParams] = useSearchParams();
   const submit = useSubmit();
@@ -37,20 +39,23 @@ const EpisodeSelector = ({
 
   return (
     <div className={styles["episode-selector"]}>
-      {seasons > 1 && (
-        <Form onChange={handleChange} className={styles["season-selector"]}>
-          <select defaultValue={query} name="season">
-            {[...Array(seasons)].map((_, idx) => {
-              const v = ++idx;
-              return (
-                <option key={v} value={v}>
-                  Season {v}
-                </option>
-              );
-            })}
-          </select>
-        </Form>
-      )}
+      <div className={styles["episode-selector__header"]}>
+        {showHeading && <h2>Episodes</h2>}
+        {seasons > 1 && (
+          <Form onChange={handleChange} className={styles["season-selector"]}>
+            <select defaultValue={query} name="season">
+              {[...Array(seasons)].map((_, idx) => {
+                const v = ++idx;
+                return (
+                  <option key={v} value={v}>
+                    Season {v}
+                  </option>
+                );
+              })}
+            </select>
+          </Form>
+        )}
+      </div>
       <AnimatePresence mode="wait" initial={false}>
         <motion.ul
           key={data.season_number}

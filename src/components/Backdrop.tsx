@@ -1,13 +1,16 @@
 import { motion } from "framer-motion";
 import type { MouseEventHandler, PropsWithChildren } from "react";
 import { useEffect } from "react";
+import { j } from "../utils";
 
 const Backdrop = ({
   preventScroll = true,
   onClick,
+  className,
   children,
 }: PropsWithChildren<{
   preventScroll?: boolean;
+  className?: string;
   onClick?: MouseEventHandler<HTMLDivElement>;
 }>) => {
   useEffect(() => {
@@ -20,7 +23,7 @@ const Backdrop = ({
 
   return (
     <motion.div
-      className="backdrop"
+      className={j(className, "backdrop")}
       onClick={onClick}
       initial={{ backgroundColor: "rgba(0,0,0,0)" }}
       animate={{ backgroundColor: "rgba(0,0,0,0.4)" }}
