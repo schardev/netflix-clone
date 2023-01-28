@@ -2,7 +2,7 @@ import { Search } from "iconoir-react";
 import { useEffect, useRef } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import useMediaQuery from "../hooks/useMediaQuery";
-import { movieGenreEntries, tvGenreEntries } from "../pages/GenresModal";
+import { movieGenreEntries, tvGenreEntries } from "../lib/constants";
 import styles from "../styles/header.module.scss";
 import { navLinks } from "./MobileNav";
 

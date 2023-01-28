@@ -1,9 +1,10 @@
 import { AnimatePresence } from "framer-motion";
 import { useModalData } from "../contexts/ModalContext";
 import useMediaQuery from "../hooks/useMediaQuery";
-import GenresModal from "../pages/GenresModal";
 import DesktopInfoModal from "./DesktopInfoModal";
 import MobileInfoModal from "./MobileInfoModal";
+import { movieGenreEntries, tvGenreEntries } from "../lib/constants";
+import ListModal from "./ListModal";
 
 const ModalListener = () => {
   const modalData = useModalData();
@@ -13,7 +14,7 @@ const ModalListener = () => {
   if (modalData.visible) {
     switch (modalData.category) {
       case "list":
-        outlet = <GenresModal />;
+        outlet = <ListModal entries={[movieGenreEntries, tvGenreEntries]}/>;
         break;
       case "tv":
       case "movie": {

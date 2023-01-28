@@ -1,4 +1,4 @@
-// I know we should probably get these from the api so that when the configuration
+// NOTE: I know we should probably get these from the api so that when the configuration
 // changes we always get the right updated endpoints, but it feels somehow wrong
 // to me to do a network request just to get image url/sizes or genre ids
 // (which won't be changing much often).
@@ -55,3 +55,29 @@ export const TV_GENRE = {
   TALK: 10767,
   WAR_POLITICS: 10768,
 } as const;
+
+/* Genre list entries */
+const splitJoin = (str: string) => {
+  // doing lowercase since we'll properly capitalize them using css
+  return str.split("_").join(" ").toLowerCase();
+};
+
+export const movieGenreEntries = {
+  title: "MOVIES",
+  list: Object.entries(MOVIE_GENRE).map((genre) => {
+    return {
+      text: splitJoin(genre[0]),
+      link: `/genres/movie/${genre[1]}`,
+    };
+  }),
+};
+
+export const tvGenreEntries = {
+  title: "TV",
+  list: Object.entries(TV_GENRE).map((genre) => {
+    return {
+      text: splitJoin(genre[0]),
+      link: `/genres/tv/${genre[1]}`,
+    };
+  }),
+};
