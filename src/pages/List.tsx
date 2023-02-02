@@ -4,7 +4,7 @@ import { useMyListData } from "../contexts/MyListProvider";
 import styles from "../styles/list-page.module.scss";
 
 const List = () => {
-  const myList = useMyListData();
+  const { myList } = useMyListData();
   const navigate = useNavigate();
 
   return (

@@ -7,7 +7,7 @@ const Accordion = () => {
       {faq.map((que, qIdx) => {
         return (
           // key is only passed to stop react from yelling at me, even though it
-          // is the default behaviour
+          // is the default behavior
           <li key={qIdx}>
             <details>
               <summary>{que.question}</summary>

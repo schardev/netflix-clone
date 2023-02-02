@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 const Portal = ({ children }: PropsWithChildren) => {
   const portalRoot = document.querySelector("#portal-root") as HTMLDivElement;
 
-  // using ref here to avoid creating a new div everytime portal renders,
+  // using ref here to avoid creating a new div every time portal renders,
   // this also avoids triggering framer animations on state change outside portal
   const containerDiv = useRef(document.createElement("div"));
 

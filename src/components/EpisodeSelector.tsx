@@ -30,7 +30,6 @@ const EpisodeSelector = ({
   if (!data) return null;
 
   const handleChange: React.FormEventHandler<HTMLFormElement> = (e) => {
-    // grab the currentTarget as it'll be null by the time setTimeout executes
     const target = e.currentTarget;
     const formData = new FormData(target);
     const seasonNumber = formData.get("season") as string;

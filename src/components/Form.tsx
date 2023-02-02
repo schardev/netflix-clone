@@ -1,4 +1,5 @@
 import styles from "../styles/landing-page.module.scss";
+
 const Form = () => {
   return (
     <form action="#" className={styles["get-started-form"]}>

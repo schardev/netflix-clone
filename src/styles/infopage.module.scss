@@ -74,7 +74,6 @@
 
       li {
         display: inline;
-        margin-right: 0.5em;
         color: #999;
       }
     }
@@ -99,6 +98,8 @@
   $top-bar: 4px;
   $button-padding-y: 1em;
   margin-bottom: 10vh;
+  min-height: 50vh;
+  padding: 0 1rem;
 
   > ul {
     display: flex;
@@ -127,8 +128,4 @@
       border: none;
     }
   }
-}
-
-.trailers-tab {
-  margin: 0 1em;
 }

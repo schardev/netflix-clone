@@ -1,6 +1,5 @@
 import { forwardRef } from "react";
 import ReactPlayer, { ReactPlayerProps } from "react-player";
-import styles from "../styles/infopage.module.scss";
 
 type YouTubeIFrameProps = ReactPlayerProps & { videoKey: string };
 

@@ -16,9 +16,11 @@ import {
   TabPanel,
   TabList,
   TabListContainer,
+  TabPanelContainer,
 } from "../components/Tabs";
 import VideoFrame from "../components/VideoFrame";
 import YouTubeIFrame from "../components/YouTubeIFrame";
+import { useMyListData } from "../contexts/MyListProvider";
 import useFetch from "../hooks/useFetch";
 import { api } from "../lib/tmdb";
 import styles from "../styles/infopage.module.scss";
@@ -128,10 +130,10 @@ const InfoPage = () => {
             const currentPlayer = playerRef.current!.getInternalPlayer();
             const iframe = currentPlayer.getIframe();
 
-            // Request fullscreen since we are essentially 'hiding' the controls
-            // on potrait mode
+            // Request full screen since we are essentially 'hiding' the controls
+            // on portrait mode
             (iframe as HTMLIFrameElement).requestFullscreen().then(() => {
-              // screen can only be locked once fullscreen
+              // screen can only be locked once full screen
               // TODO: check iOS support
               window.screen.orientation.lock("landscape");
             });
@@ -158,7 +160,12 @@ const InfoPage = () => {
           <ul>
             <span>Starring:</span>
             {Array.isArray(starring) ? (
-              starring.map((v) => <li key={v.id}>{v.name},</li>)
+              starring.map((cast, idx) => (
+                <li key={cast.id}>
+                  {cast.name}
+                  {starring.length - 1 !== idx && ", "}
+                </li>
+              ))
             ) : (
               <li>starring</li>
             )}
@@ -166,7 +173,12 @@ const InfoPage = () => {
           <ul>
             <span>{category === "movie" ? "Director:" : "Creator:"}</span>
             {Array.isArray(director) ? (
-              director.map((v) => <li key={v.id}>{v.name},</li>)
+              director.map((crew, idx) => (
+                <li key={crew.id}>
+                  {crew.name}
+                  {director!.length - 1 !== idx && ", "}
+                </li>
+              ))
             ) : (
               <li>{director}</li>
             )}
@@ -214,30 +226,30 @@ const InfoPage = () => {
               </TabList>
             )}
           </TabListContainer>
-          {category === "tv" && (
-            <TabPanel value="episodes-tab">
-              <EpisodeSelector id={+id} seasons={numberOfSeasons} />
-            </TabPanel>
-          )}
-          {recommendations.length > 0 && (
-            <TabPanel value="recommendations-tab">
-              <Slider
-                endpoint={`${category}/${id}/recommendations`}
-                flow="row"
-              />
-            </TabPanel>
-          )}
-          {videos && (
-            <TabPanel value="trailers-tab">
-              <div className={styles["trailers-tab"]}>
+          <TabPanelContainer>
+            {category === "tv" && (
+              <TabPanel value="episodes-tab">
+                <EpisodeSelector id={+id} seasons={numberOfSeasons} />
+              </TabPanel>
+            )}
+            {recommendations.length > 0 && (
+              <TabPanel value="recommendations-tab">
+                <Slider
+                  endpoint={`${category}/${id}/recommendations`}
+                  flow="row"
+                />
+              </TabPanel>
+            )}
+            {videos && (
+              <TabPanel value="trailers-tab">
                 {videos.map((video) => {
                   return (
-                    <VideoFrame key={video.key!} videoKey={video.key!} title={video.name!} />
+                    <VideoFrame videoKey={video.key!} title={video.name!} />
                   );
                 })}
-              </div>
-            </TabPanel>
-          )}
+              </TabPanel>
+            )}
+          </TabPanelContainer>
         </TabsContainer>
       </div>
     </main>

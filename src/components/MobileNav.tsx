@@ -17,7 +17,7 @@ const MobileNav = () => {
     <nav className={styles["mobile-nav"]}>
       <ul>
         {navLinks.map((link) => (
-          <li>
+          <li key={link.text}>
             <button>
               <NavLink to={link.to}>
                 {link.icon}

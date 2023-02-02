@@ -1,4 +1,5 @@
 import { PlayOutline } from "iconoir-react";
+import useMediaQuery from "../hooks/useMediaQuery";
 import ShimmerImg from "./ShimmerImg";
 
 type VideoFrameProps = {
@@ -8,18 +9,20 @@ type VideoFrameProps = {
 };
 
 // https://stackoverflow.com/a/71639812
-const VideoFrame = ({ title, videoKey, size }: VideoFrameProps) => {
-  if (!size) {
-    // TODO: change according to viewport context
-    size = "hqdefault";
-  }
+const VideoFrame = ({
+  title,
+  videoKey,
+  size = "mqdefault",
+}: VideoFrameProps) => {
+  const tabletUp = useMediaQuery("tablet-up");
+  if (tabletUp) size = "hqdefault";
 
   return (
     <div className="video-frame">
       <a href={`https://www.youtube.com/watch?v=${videoKey}`} target="_blank">
         <div className="video-frame__img">
           <ShimmerImg src={`https://i.ytimg.com/vi/${videoKey}/${size}.jpg`} />
-          <PlayOutline/>
+          <PlayOutline />
         </div>
       </a>
       <span className="video-frame__title">{title}</span>

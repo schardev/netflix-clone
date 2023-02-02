@@ -45,7 +45,7 @@ const Banner = ({
 }: PropsWithChildren<{ endpoint: string; params?: CustomURLSearchParams }>) => {
   const searchParams = new URLSearchParams(params as any);
 
-  let category: Category;
+  let category: Exclude<ModalCategory, "list">;
   if (endpoint.includes("movie")) {
     category = "movie";
   } else if (endpoint.includes("tv")) {
@@ -54,11 +54,11 @@ const Banner = ({
     throw new Error("Unknown endpoint!");
   }
 
-  const myList = useMyListData();
+  const {isInList} = useMyListData();
   const dispatchToList = useMyListDispatcher();
   const setModalState = useModalDispatcher();
   const navigate = useNavigate();
-  const matches = useMediaQuery("tablet-up");
+  const tabletUp = useMediaQuery("tablet-up");
   const [muted, setIsMuted] = useState(true);
   const playerRef = useRef<ReactPlayer>(null);
   const { isLoading, data, error } = useFetch<BannerState>(
@@ -108,19 +108,12 @@ const Banner = ({
     logoPath = data.images.logos[0].file_path!;
   }
 
-  const isInList = myList.some((item) => {
-    if (item.id === data.id! && category === item.media_type) {
-      return true;
-    }
-    return false;
-  });
-
   let videos = data.videos.results!.length >= 1 ? data.videos?.results : null;
-  videos = null; // TEMP TODO, aslo use a sliht delay to show banner video
+  videos = null; // TEMP TODO, also use a slight delay to show banner video
 
   return (
     <div className={styles["banner-container"]}>
-      {matches && videos ? (
+      {tabletUp && videos ? (
         <div className={styles["player"]}>
           <YouTubeIFrame
             ref={playerRef}
@@ -157,7 +150,7 @@ const Banner = ({
         ) : (
           <h1>{title}</h1>
         )}
-        {matches ? (
+        {tabletUp ? (
           <p>{data.overview}</p>
         ) : (
           <ul className={styles["banner-info__genre"]}>
@@ -169,7 +162,7 @@ const Banner = ({
           </ul>
         )}
         <ul className={styles["banner-menu"]}>
-          {!matches && (
+          {!tabletUp && (
             <li>
               <button
                 onClick={() => {
@@ -182,7 +175,7 @@ const Banner = ({
                     },
                   });
                 }}>
-                {isInList ? <Check /> : <Plus />}
+                {isInList(data.id!, category) ? <Check /> : <Plus />}
                 <span>My List</span>
               </button>
             </li>
@@ -201,12 +194,12 @@ const Banner = ({
                 setModalState({
                   visible: true,
                   id: data.id!,
-                  category: category as ModalCategory,
-                  expanded: true
+                  category: category,
+                  expanded: true,
                 })
               }>
               <InfoEmpty />
-              <span>{matches ? "More Info" : "Info"}</span>
+              <span>{tabletUp ? "More Info" : "Info"}</span>
             </button>
           </li>
         </ul>

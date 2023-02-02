@@ -1,11 +1,16 @@
 import {
   createContext,
   PropsWithChildren,
+  useCallback,
   useContext,
   useReducer,
 } from "react";
 
-export const MyListData = createContext<MyList[] | null>(null);
+export const MyListData = createContext<{
+  myList: MyList[];
+  isInList: (id: number, mediaType: Category) => boolean;
+} | null>(null);
+
 export const MyListDispatch =
   createContext<React.Dispatch<ListDispatchAction> | null>(null);
 
@@ -45,8 +50,8 @@ const reducer = (state: MyList[], action: ListDispatchAction) => {
         return false;
       });
 
-      // if it's already in the list to fallthrough and remove it, basically
-      // acting as a toggle, else we set `newState` with the added item
+      // if it's already in the list to fallthrough and remove it (basically
+      // acting as a toggle), else we set `newState` with the added item
       if (!isInList) {
         const { id, media_type, poster_path } = action.payload;
         newState = [
@@ -86,8 +91,21 @@ const MyListProvider = ({ children }: PropsWithChildren) => {
   let parsedList = storageList ? JSON.parse(storageList) : [];
   const [myList, dispatch] = useReducer(reducer, parsedList);
 
+  // Utility function to check if an item is already present in the list
+  const isInList = useCallback(
+    (id: number, mediaType: Category) => {
+      return myList.some((item) => {
+        if (item.id === id! && item.media_type === mediaType) {
+          return true;
+        }
+        return false;
+      });
+    },
+    [myList]
+  );
+
   return (
-    <MyListData.Provider value={myList}>
+    <MyListData.Provider value={{ myList, isInList }}>
       <MyListDispatch.Provider value={dispatch}>
         {children}
       </MyListDispatch.Provider>

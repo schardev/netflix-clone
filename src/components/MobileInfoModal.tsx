@@ -31,7 +31,7 @@ const modalVariants: Variants = {
 };
 
 const MobileInfoModal = ({ category, id }: MobileInfoModalProps) => {
-  const myList = useMyListData();
+  const { myList, isInList } = useMyListData();
   const dispatchToList = useMyListDispatcher();
   const setModalState = useModalDispatcher();
   const navigate = useNavigate();
@@ -76,23 +76,15 @@ const MobileInfoModal = ({ category, id }: MobileInfoModalProps) => {
     }
   }
 
-  const isInList = myList.filter((item) => item.id === data.id!).length > 0;
-  const handleClick = () => {
-    if (isInList) {
-      dispatchToList({
-        type: "remove",
-        payload: { id: data.id!, media_type: category },
-      });
-    } else {
-      dispatchToList({
-        type: "add",
-        payload: {
-          id: data.id!,
-          media_type: category,
-          poster_path: api.getPosterURL(data.poster_path),
-        },
-      });
-    }
+  const handleListClick = () => {
+    dispatchToList({
+      type: "add",
+      payload: {
+        id: data.id!,
+        media_type: category,
+        poster_path: api.getPosterURL(data.poster_path),
+      },
+    });
   };
 
   return (
@@ -132,9 +124,9 @@ const MobileInfoModal = ({ category, id }: MobileInfoModalProps) => {
                 </button>
               </li>
               <li>
-                <button onClick={handleClick}>
+                <button onClick={handleListClick}>
                   <div className={styles["modal-icon"]}>
-                    {isInList ? <Check /> : <Plus />}
+                    {isInList(data.id!, category) ? <Check /> : <Plus />}
                   </div>
                   <span>My List</span>
                 </button>

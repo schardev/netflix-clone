@@ -1,4 +1,5 @@
 // TODO: Refactor and animation
+import { AnimatePresence, motion } from "framer-motion";
 import {
   createContext,
   PropsWithChildren,
@@ -62,6 +63,10 @@ export const TabList = ({
   );
 };
 
+export const TabPanelContainer = ({ children }: PropsWithChildren) => {
+  return <AnimatePresence mode="wait">{children}</AnimatePresence>;
+};
+
 export const TabPanel = ({
   value,
   children,
@@ -69,5 +74,16 @@ export const TabPanel = ({
   const {
     data: { activeTabId },
   } = useContext(TabData);
-  return activeTabId === value ? <>{children}</> : null;
+
+  if (activeTabId !== value) return null;
+
+  return (
+    <motion.div
+      key={value}
+      initial={{ opacity: 0.5, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 30 }}>
+      {children}
+    </motion.div>
+  );
 };
