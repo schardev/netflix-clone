@@ -1,15 +1,21 @@
 @use "mixins" as *;
 @use "variables" as *;
 
-.mini-modal-container {
+/* Mini modal styles */
+.mini-motion-modal {
   position: absolute;
-  width: clamp(10rem, 30vw, 30rem);
+}
+
+.mini-modal-container {
+  position: relative;
+  z-index: 1;
   border-radius: 5px;
+  width: clamp(10rem, 30vw, 30rem);
   box-shadow: 0 0 10px 2px hsl(0, 0%, 0%, 0.7);
   overflow-y: hidden;
 }
 
-.mini-modal-menu {
+.mini-player-menu {
   display: flex;
   gap: 0.5rem;
 
@@ -47,27 +53,7 @@
     margin-bottom: 0.5em;
   }
 
-  .details {
-    line-height: 1.2;
-
-    h2 {
-      font-size: var(--step-0);
-    }
-
-    p {
-      font-size: var(--step-0);
-    }
-
-    span {
-      font-size: var(--step--1);
-    }
-
-    span + span {
-      margin-left: 0.5em;
-    }
-  }
-
-  .genres {
+  .genre-list {
     $gap: 0.5em;
     display: flex;
     gap: $gap;
@@ -82,117 +68,70 @@
   }
 }
 
-.span {
-  &-match {
-    font-weight: 600;
-    color: #46d369;
-  }
+.mini-modal-info-details {
+  line-height: 1.2;
 
-  &-runtime {
+  h2 {
     font-size: var(--step-0);
   }
-}
 
-.player {
-  aspect-ratio: 1;
-  margin-block: -20%;
-  position: relative;
-  z-index: -1;
-
-  :global(.yt-player) {
-    height: 100%;
+  span {
+    font-size: var(--step--1);
   }
 
-  &-controls {
-    @include flex-center;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 25%;
-    width: 95%;
-  }
-
-  &-menu {
-    display: flex;
-    gap: 0.5em;
-    flex: 1;
-
-    button {
-      font-size: var(--fs-max-0);
-      background: transparent;
-      border: none;
-    }
-
-    button + button {
-      border: 1px solid #999;
-      border-radius: 100vh;
-      padding: 0.3em;
-    }
-  }
-
-  .play-btn {
-    @include flex-center; // TODO common banner btn style
-    gap: 0.2em;
-    background: white;
-    color: black;
-    border-radius: 5px;
-    padding: 0 1em;
-
-    span {
-      font-weight: 600;
-    }
-
-    svg {
-      fill: currentColor;
-    }
-  }
-
-  .mute-btn {
-    margin-left: auto;
-    background: transparent;
-    border: 2px solid #999;
-    border-radius: 100vh;
-    padding: 0.3em;
-    opacity: 0.7;
-    transition: opacity 200ms ease-in, background-color 200ms ease-in;
-
-    &:hover {
-      opacity: 1;
-      background-color: hsl(0, 0%, 0%, 0.55);
-    }
-
-    svg {
-      width: 1em;
-      height: 1em;
-    }
+  span + span {
+    margin-left: 0.5em;
   }
 }
 
-.backdrop {
+/* Big modal styles */
+.big-motion-modal {
+  position: fixed;
+  inset: 0;
   overflow-y: scroll;
 }
 
 .big-modal-container {
+  --padding: min(4rem, 4vw);
+
   position: absolute;
   top: 10vh;
   left: 50%;
   transform: translateX(-50%);
   width: clamp($width-md, 75vw, $width-lg);
-  border-radius: 5px;
   overflow-y: hidden;
+  border-radius: 5px;
   padding-bottom: 5vh;
 
   .player {
     margin-block: -22%;
 
     &-controls {
-      width: calc(100% - 2 * min(4rem, 4vw));
+      width: calc(100% - 2 * var(--padding));
     }
   }
 }
 
+.big-player-menu {
+  display: flex;
+  gap: 0.5em;
+  flex: 1;
+
+  button {
+    font-size: var(--fs-max-0);
+    background: transparent;
+    border: none;
+  }
+
+  button + button {
+    border: 1px solid #999;
+    border-radius: 100vh;
+    padding: 0.3em;
+  }
+}
+
 .big-modal-info-container {
-  padding: 1rem min(4rem, 4vw) min(4rem, 4vw); // TODO: I'm an idiot
+  padding: 1rem var(--padding) var(--padding);
   background-color: var(--color-background);
 
   > *:not(:last-child) {
@@ -201,19 +140,17 @@
 }
 
 .big-modal-info-details {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
   gap: 1em;
 
-  &__left {
-    grid-column: 1 / 4;
+  span,
+  p {
+    font-size: var(--step--1);
+  }
 
+  &__left {
     h2 {
       font-size: var(--step-1);
-    }
-
-    span {
-      font-size: var(--step--1);
     }
 
     span + span {
@@ -222,19 +159,15 @@
 
     p {
       margin-top: 1em;
-      font-size: var(--step--1);
     }
   }
 
   &__right {
-    font-size: var(--step--1);
+    flex-shrink: 0.6;
+    line-height: 1;
 
     > *:not(:last-child) {
-      margin-bottom: 1em;
-    }
-
-    span.title {
-      color: #777;
+      margin-bottom: 1rem;
     }
   }
 }
@@ -252,10 +185,6 @@
 
   > *:not(:last-child) {
     margin-bottom: 1em;
-  }
-
-  .title {
-    color: #777;
   }
 }
 
@@ -293,6 +222,86 @@
           font-size: var(--step--1);
         }
       }
+    }
+  }
+}
+
+/* Utility styles */
+.span {
+  &-match {
+    font-weight: 600;
+    color: #46d369;
+  }
+
+  &-runtime {
+    font-size: var(--step-0);
+  }
+
+  &-title {
+    color: #777;
+  }
+}
+
+/* YouTube player styles */
+.player {
+  aspect-ratio: 1;
+  margin-block: -20%;
+  position: relative;
+  z-index: -1;
+
+  :global(.yt-player) {
+    height: 100%;
+  }
+
+  .logo {
+    position: absolute;
+    bottom: 32%;
+    left: var(--padding);
+  }
+
+  &-controls {
+    @include flex-center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 25%;
+    width: 95%;
+  }
+
+  .play-btn {
+    @include flex-center; // TODO common banner btn style
+    gap: 0.2em;
+    background: white;
+    color: black;
+    border-radius: 5px;
+    padding: 0 1em;
+
+    span {
+      font-weight: 600;
+    }
+
+    svg {
+      fill: currentColor;
+    }
+  }
+
+  .mute-btn {
+    margin-left: auto;
+    background: transparent;
+    border: 2px solid #999;
+    border-radius: 100vh;
+    padding: 0.3em;
+    opacity: 0.7;
+    transition: opacity 200ms ease-in, background-color 200ms ease-in;
+
+    &:hover {
+      opacity: 1;
+      background-color: hsl(0, 0%, 0%, 0.55);
+    }
+
+    svg {
+      width: 1em;
+      height: 1em;
     }
   }
 }
