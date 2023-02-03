@@ -11,6 +11,10 @@
   background-color: #222;
   margin-bottom: 2em;
 
+  @include for-tablet-up {
+    font-size: var(--step-0);
+  }
+
   input {
     background-color: transparent;
     width: 100%;
@@ -26,5 +30,13 @@
 
   svg {
     margin-left: 1em;
+  }
+}
+
+.search-list {
+  padding: 0 1rem;
+
+  @include for-tablet-up {
+    padding: 0 4vw;
   }
 }

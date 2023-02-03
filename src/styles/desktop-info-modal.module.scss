@@ -110,6 +110,10 @@
       width: calc(100% - 2 * var(--padding));
     }
   }
+
+  > img {
+    width: 100%;
+  }
 }
 
 .big-player-menu {
@@ -257,6 +261,7 @@
     position: absolute;
     bottom: 32%;
     left: var(--padding);
+    max-width: 50%
   }
 
   &-controls {

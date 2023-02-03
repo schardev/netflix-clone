@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import Banner from "../components/Banner";
 import Slider from "../components/Slider";
 import { MOVIE_GENRE, TV_GENRE } from "../lib/constants";
+import styles from "../styles/slider.module.scss";
 
 const GenresPage = () => {
   const { category, id } = useParams();
@@ -23,14 +24,16 @@ const GenresPage = () => {
   return (
     <>
       <Banner endpoint={`discover/${category}`} params={{ with_genres: id }} />
-      <Slider
-        title={genreName.split("_").join(" ").toLowerCase()} // TODO
-        endpoint={`discover/${category}`}
-        params={{
-          with_genres: id,
-        }}
-        flow="row"
-      />
+      <div className={styles["list-container"]}>
+        <Slider
+          title={genreName.split("_").join(" ").toLowerCase()} // TODO
+          endpoint={`discover/${category}`}
+          params={{
+            with_genres: id,
+          }}
+          flow="row"
+        />
+      </div>
     </>
   );
 };

@@ -1,6 +1,7 @@
 import Banner from "../components/Banner";
 import Slider from "../components/Slider";
 import { MOVIE_GENRE, TV_GENRE } from "../lib/constants";
+import styles from "../styles/slider.module.scss";
 import type { SliderQueries } from "../types/app";
 
 const queries: SliderQueries[] = [
@@ -65,14 +66,16 @@ const Homepage = () => {
   return (
     <>
       <Banner endpoint="discover/movie" />
-      {queries.map((query) => (
-        <Slider
-          key={query.title}
-          title={query.title}
-          endpoint={query.endpoint}
-          params={query.params}
-        />
-      ))}
+      <div className={styles["list-container"]}>
+        {queries.map((query) => (
+          <Slider
+            key={query.title}
+            title={query.title}
+            endpoint={query.endpoint}
+            params={query.params}
+          />
+        ))}
+      </div>
     </>
   );
 };

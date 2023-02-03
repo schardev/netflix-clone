@@ -9,7 +9,11 @@
   @include for-tablet-up {
     height: 100vh;
     margin-bottom: -10vh; // to bring the slider on top of the banner
-    z-index: -1;
+  }
+
+  // put the immediate slider component above the banner
+  & + * {
+    position: relative;
   }
 }
 

@@ -54,7 +54,8 @@ const SearchPage = () => {
             variants={sliderVariants}
             initial="initial"
             animate="animate"
-            exit="exit">
+            exit="exit"
+            className={styles["search-list"]}>
             <Slider
               title="Top Searches"
               endpoint="search/multi"

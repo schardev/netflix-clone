@@ -198,7 +198,7 @@ const DesktopInfoModal = ({
             <YouTubeIFrame
               videoKey={videos[0].key!}
               playing={true}
-              controls={true}
+              controls={false}
               muted={muted}
               loop={true}
             />

@@ -2,15 +2,18 @@
 @use "variables" as *;
 
 // TODO: make grids responsive
+.list-container {
+  padding: 0 1rem;
+
+  @include for-tablet-up {
+    padding: 0 1rem 0 4vw;
+  }
+}
+
 .list-section {
   display: grid;
   grid-template-rows: auto 1fr;
   gap: 1rem;
-  // padding: 0 1rem;
-  //
-  // @include for-tablet-up {
-  //   padding: 0 1rem 0 4vw;
-  // }
 
   &:not(:last-of-type) {
     margin-bottom: 1.5rem;
