@@ -1,5 +1,6 @@
 import { CheckCircledOutline } from "iconoir-react";
 import { useNavigate } from "react-router-dom";
+import Card from "../components/Card";
 import { useMyListData } from "../contexts/MyListProvider";
 import styles from "../styles/list-page.module.scss";
 
@@ -28,12 +29,11 @@ const List = () => {
               {/* https://stackoverflow.com/a/59459000 */}
               {myList.map((item) => {
                 return (
-                  <div
-                    key={item.id}
-                    data-item-id={item.id}
-                    data-item-category={item.media_type}>
-                    <img src={item.poster_path} />
-                  </div>
+                  <Card
+                    cardId={item.id}
+                    mediaType={item.media_type}
+                    posterImg={item.poster_path}
+                  />
                 );
               })}
             </div>

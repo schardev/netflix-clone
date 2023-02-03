@@ -14,13 +14,14 @@ import { useMyListData, useMyListDispatcher } from "../contexts/MyListProvider";
 import useFetch from "../hooks/useFetch";
 import { api } from "../lib/tmdb";
 import styles from "../styles/mobile-modal.module.scss";
+import type { MediaType } from "../types/app";
 import type { MovieDetails, TVDetails } from "../types/tmdb";
 import { shareLink } from "../utils";
 import Backdrop from "./Backdrop";
 import Portal from "./Portal";
 
 type MobileInfoModalProps = {
-  category: Exclude<Category, "person">;
+  category: Exclude<MediaType, "person">;
   id: number;
 };
 
@@ -31,7 +32,7 @@ const modalVariants: Variants = {
 };
 
 const MobileInfoModal = ({ category, id }: MobileInfoModalProps) => {
-  const { myList, isInList } = useMyListData();
+  const { isInList } = useMyListData();
   const dispatchToList = useMyListDispatcher();
   const setModalState = useModalDispatcher();
   const navigate = useNavigate();

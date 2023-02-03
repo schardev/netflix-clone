@@ -6,8 +6,9 @@ import {
   useContext,
   useState,
 } from "react";
+import type { MediaType } from "../types/app";
 
-export type ModalCategory = Exclude<Category, "person"> | "list";
+export type ModalCategory = Exclude<MediaType, "person"> | "list";
 export type ModalData =
   | {
       visible: false;

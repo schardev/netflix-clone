@@ -42,7 +42,7 @@
     display: grid;
     gap: 0.5rem;
 
-    div[data-item-id] {
+    div[data-card-id] {
       position: relative;
       min-height: 185px;
       @extend %tap-transition;

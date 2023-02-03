@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import { Outlet } from "react-router-dom";
 import ModalListener from "../components/ModalListener";
-import { ModalCategory, useModalDispatcher } from "../contexts/ModalContext";
+import { useModalDispatcher } from "../contexts/ModalContext";
+import type { MediaType } from "../types/app";
 
 const WithModalListener = () => {
   const setModalData = useModalDispatcher();
@@ -9,21 +10,17 @@ const WithModalListener = () => {
 
   const handleCardClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
     const target = (e.target as HTMLElement).closest(
-      "[data-item-id]"
+      "[data-card-id]"
     ) as HTMLElement;
+    const cardId = target.dataset.cardId;
+    const mediaType = target.dataset.cardMediaType as MediaType;
 
     // Dispatch modal if clicked on a 'movie' or 'tv' card
-    if (
-      target &&
-      target.dataset.itemId &&
-      target.dataset.itemCategory !== "person"
-    ) {
-      const category = target.dataset.itemCategory as ModalCategory;
-      const id = +target.dataset.itemId;
+    if (cardId && mediaType !== "person") {
       setModalData({
         visible: true,
-        category,
-        id,
+        category: mediaType,
+        id: +cardId,
       });
     }
   };
@@ -34,16 +31,12 @@ const WithModalListener = () => {
     }
 
     const target = (e.target as HTMLElement).closest(
-      "[data-item-id]"
+      "[data-card-id]"
     ) as HTMLElement;
+    const cardId = target.dataset.cardId;
+    const mediaType = target.dataset.cardMediaType as MediaType;
 
-    if (
-      target &&
-      target.dataset.itemId &&
-      target.dataset.itemCategory !== "person"
-    ) {
-      const category = target.dataset.itemCategory as ModalCategory;
-      const id = +target.dataset.itemId;
+    if (cardId && mediaType !== "person") {
       const pos = target.getBoundingClientRect();
       const x = window.scrollX + pos.x - pos.width / 2;
       const y = window.scrollY + pos.y - pos.height / 2;
@@ -53,8 +46,8 @@ const WithModalListener = () => {
 
         setModalData({
           visible: true,
-          category,
-          id,
+          category: mediaType,
+          id: +cardId,
           x: x < 0 ? window.scrollX + pos.x : x, // avoid negative start position
           y: y,
         });
@@ -64,7 +57,7 @@ const WithModalListener = () => {
 
   return (
     <div
-      className="modal-listner"
+      className="modal-listener"
       onClick={handleCardClick}
       onPointerOver={handleHover}>
       <Outlet />

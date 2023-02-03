@@ -13,6 +13,7 @@ import { useMyListData, useMyListDispatcher } from "../contexts/MyListProvider";
 import useFetch from "../hooks/useFetch";
 import { api } from "../lib/tmdb";
 import styles from "../styles/desktop-info-modal.module.scss";
+import type { MediaType } from "../types/app";
 import type {
   Credits,
   Images,
@@ -32,7 +33,7 @@ type ExtendedRequest<T> = T & { videos: Videos } & { credits: Credits } & {
 } & { images: Images };
 
 type DesktopInfoModalProps = {
-  category: Exclude<Category, "person">;
+  category: Exclude<MediaType, "person">;
   id: number;
   x: number;
   y: number;

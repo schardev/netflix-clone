@@ -1,6 +1,5 @@
 import Accordion from "../components/Accordion";
 import Form from "../components/Form";
-import Header from "../components/Header";
 import Section from "../components/Section";
 import { j } from "../utils";
 import styles from "../styles/landing-page.module.scss";

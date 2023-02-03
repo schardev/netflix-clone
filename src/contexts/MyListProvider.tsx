@@ -5,10 +5,11 @@ import {
   useContext,
   useReducer,
 } from "react";
+import type { MyList, MediaType } from "../types/app";
 
 export const MyListData = createContext<{
   myList: MyList[];
-  isInList: (id: number, mediaType: Category) => boolean;
+  isInList: (id: number, mediaType: MediaType) => boolean;
 } | null>(null);
 
 export const MyListDispatch =
@@ -93,7 +94,7 @@ const MyListProvider = ({ children }: PropsWithChildren) => {
 
   // Utility function to check if an item is already present in the list
   const isInList = useCallback(
-    (id: number, mediaType: Category) => {
+    (id: number, mediaType: MediaType) => {
       return myList.some((item) => {
         if (item.id === id! && item.media_type === mediaType) {
           return true;

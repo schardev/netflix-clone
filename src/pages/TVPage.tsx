@@ -1,6 +1,7 @@
 import Banner from "../components/Banner";
-import Slider, { SliderQueries } from "../components/Slider";
+import Slider from "../components/Slider";
 import { TV_GENRE } from "../lib/constants";
+import type { SliderQueries } from "../types/app";
 
 const queries: SliderQueries[] = [
   {

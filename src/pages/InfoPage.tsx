@@ -20,7 +20,6 @@ import {
 } from "../components/Tabs";
 import VideoFrame from "../components/VideoFrame";
 import YouTubeIFrame from "../components/YouTubeIFrame";
-import { useMyListData } from "../contexts/MyListProvider";
 import useFetch from "../hooks/useFetch";
 import { api } from "../lib/tmdb";
 import styles from "../styles/infopage.module.scss";
@@ -235,7 +234,7 @@ const InfoPage = () => {
             {recommendations.length > 0 && (
               <TabPanel value="recommendations-tab">
                 <Slider
-                  endpoint={`${category}/${id}/recommendations`}
+                  endpoint={`${category}/${+id}/recommendations`}
                   flow="row"
                 />
               </TabPanel>

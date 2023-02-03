@@ -1,4 +1,5 @@
 import type { TMDB_CONFIG } from "../lib/constants";
+import type { MediaType } from "./app";
 
 export interface TMDBConfig {
   images?: {
@@ -19,17 +20,11 @@ export type CustomURLSearchParams = Record<
   string | number | (string | number)[] | boolean
 >;
 
-export type ImageSizes =
-  | typeof TMDB_CONFIG.images.poster_sizes[number]
-  | typeof TMDB_CONFIG.images.logo_sizes[number]
-  | typeof TMDB_CONFIG.images.still_sizes[number]
-  | typeof TMDB_CONFIG.images.backdrop_sizes[number]
-  | typeof TMDB_CONFIG.images.profile_sizes[number];
-
 export type PosterSizes = typeof TMDB_CONFIG.images.poster_sizes[number];
 export type LogoSizes = typeof TMDB_CONFIG.images.logo_sizes[number];
 export type BackdropSizes = typeof TMDB_CONFIG.images.backdrop_sizes[number];
 export type StillSizes = typeof TMDB_CONFIG.images.still_sizes[number];
+export type ImageSizes = PosterSizes | LogoSizes | BackdropSizes | StillSizes;
 
 export type GenericEndpoints = "latest" | "popular" | "top_rated";
 export type MovieGenericEndpoints =
@@ -47,7 +42,7 @@ export type PersonListResponse = ListResponse<PersonListResult>;
 export type MultiListResponse = ListResponseWithMedia<
   MovieListResult | TVListResult | PersonListResult
 >;
-export type ListResponseWithMedia<T> = T & { media_type: Category };
+export type ListResponseWithMedia<T> = T & { media_type: MediaType };
 
 export interface TVSeasons {
   _id?: string;

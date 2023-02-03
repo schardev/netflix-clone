@@ -2,8 +2,8 @@ import useFetch from "../hooks/useFetch";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { api } from "../lib/tmdb";
 import styles from "../styles/slider.module.scss";
+import type { MediaType, SliderQueries } from "../types/app";
 import type {
-  CustomURLSearchParams,
   MovieListResponse,
   MovieListResult,
   MultiListResponse,
@@ -13,31 +13,15 @@ import type {
   TVListResult,
 } from "../types/tmdb";
 import { j } from "../utils";
-import ShimmerImg from "./ShimmerImg";
-
-export type SliderQueries = {
-  title?: string;
-  endpoint: string;
-  params?: CustomURLSearchParams;
-};
+import Card from "./Card";
 
 type SliderProps = {
   flow?: "row" | "column";
 } & SliderQueries;
 
-/*
-  Currently handled endpoints:
-- movie/{popular,etc} --> MovieListResponse
-- tv/{popular.etc} --> TVListResponse
-- discover/movie --> MovieListResponse
-- discover/tv --> TVListResponse
-- search/movie --> MovieListResponse
-- search/tv --> TVListResponse
-- search/multi --> ListResponseWithMedia<MovieListResponse | TVListResponse | PersonListResponse>
-*/
 const Slider = ({ title, endpoint, flow, params }: SliderProps) => {
   const searchParams = new URLSearchParams(params as any).toString();
-  const matches = useMediaQuery("phone-only");
+  const phoneOnly = useMediaQuery("phone-only");
   const { data, error } = useFetch<
     MovieListResponse | TVListResponse | PersonListResponse
   >(`${endpoint}/${searchParams}/slider`, ({ signal }) => {
@@ -47,8 +31,13 @@ const Slider = ({ title, endpoint, flow, params }: SliderProps) => {
     });
   });
 
-  // TODO: add loading glimmer
-  if (error || !data || !data.results?.length) return null;
+  if (error) {
+    console.error(error);
+    return null;
+  }
+
+  // Result might be empty due to invalid endpoint or params being passed
+  if (!data || !data.results?.length) return null;
 
   return (
     <section className={styles["list-section"]}>
@@ -60,51 +49,53 @@ const Slider = ({ title, endpoint, flow, params }: SliderProps) => {
         )}>
         {data.results &&
           data.results.map((item, idx) => {
-            let category: Category | null = null;
-            let imgSrc =
-              (item as MovieListResult | TVListResult).poster_path || "";
-            let altText = "";
+            let mediaType: MediaType | null = null;
+            let imgSrc = (item as any).poster_path || "";
+            let altText =
+              (item as PersonListResult | TVListResult).name ||
+              (item as MovieListResult).title ||
+              "";
 
+            // Based on the endpoint, set the mediaType accordingly
             if (endpoint.includes("movie")) {
-              category = "movie";
-              altText = (item as MovieListResult).title || "";
+              mediaType = "movie";
             } else if (endpoint.includes("tv")) {
-              category = "tv";
-              altText = (item as TVListResult).name || "";
+              mediaType = "tv";
             } else if (endpoint.includes("multi")) {
               const multi = item as MultiListResponse;
               if (multi.media_type) {
-                category = multi.media_type;
-                if (category === "person") {
+                mediaType = multi.media_type;
+
+                // person object doesn't have a poster_path
+                if (mediaType === "person") {
                   imgSrc = (item as PersonListResult).profile_path!;
                 }
               }
             }
 
-            // if category is still null that means either the endpoint is invalid
+            // if mediaType is still null that means either the endpoint is invalid
             // or the data doesn't include media_type (which it should)
-            if (!category) {
+            if (!mediaType) {
               console.error("Unhandled item category found: ", item);
               return null;
             }
 
             // Lazily load images that are out of viewport
-            let loading: "eager" | "lazy" = "eager";
-            if (((matches && idx > 4) || idx > 7) && flow !== "row") {
-              loading = "lazy";
+            // TODO: instead of guessing, maybe check if the item is visible
+            // inside the viewport
+            let lazyLoad = false;
+            if (((phoneOnly && idx > 4) || idx > 7) && flow !== "row") {
+              lazyLoad = true;
             }
 
             return (
-              <div
-                key={item.id}
-                data-item-id={item.id}
-                data-item-category={category}>
-                <ShimmerImg
-                  src={api.getPosterURL(imgSrc)}
-                  alt={altText}
-                  loading={loading}
-                />
-              </div>
+              <Card
+                cardId={item.id!}
+                mediaType={mediaType}
+                posterImg={imgSrc}
+                lazyLoad={lazyLoad}
+                alt={altText}
+              />
             );
           })}
       </div>
