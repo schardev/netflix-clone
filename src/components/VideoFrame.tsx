@@ -1,4 +1,4 @@
-import { PlayOutline } from "iconoir-react";
+import { Play } from "iconoir-react";
 import useMediaQuery from "../hooks/useMediaQuery";
 import ShimmerImg from "./ShimmerImg";
 
@@ -22,7 +22,7 @@ const VideoFrame = ({
       <a href={`https://www.youtube.com/watch?v=${videoKey}`} target="_blank">
         <div className="video-frame__img">
           <ShimmerImg src={`https://i.ytimg.com/vi/${videoKey}/${size}.jpg`} />
-          <PlayOutline />
+          <Play />
         </div>
       </a>
       <span className="video-frame__title">{title}</span>

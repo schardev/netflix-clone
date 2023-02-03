@@ -1,7 +1,7 @@
 import {
   Check,
   InfoEmpty,
-  PlayOutline,
+  Play,
   Plus,
   SoundHigh,
   SoundOff,
@@ -54,7 +54,7 @@ const Banner = ({
     throw new Error("Unknown endpoint!");
   }
 
-  const {isInList} = useMyListData();
+  const { isInList } = useMyListData();
   const dispatchToList = useMyListDispatcher();
   const setModalState = useModalDispatcher();
   const navigate = useNavigate();
@@ -184,7 +184,7 @@ const Banner = ({
             <button
               className={styles["play-btn"]}
               onClick={() => navigate(`/${category}/${data.id}`)}>
-              <PlayOutline />
+              <Play />
               <span>Play</span>
             </button>
           </li>

@@ -1,4 +1,4 @@
-import { CheckCircledOutline } from "iconoir-react";
+import { CheckCircle } from "iconoir-react";
 import { useNavigate } from "react-router-dom";
 import Card from "../components/Card";
 import { useMyListData } from "../contexts/MyListProvider";
@@ -12,7 +12,7 @@ const List = () => {
     <>
       {!myList.length ? (
         <div className={styles["no-list"]}>
-          <CheckCircledOutline />
+          <CheckCircle />
           <p>
             Add movies & TV shows to your list so you can easily find them
             later.

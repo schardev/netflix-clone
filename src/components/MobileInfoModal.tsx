@@ -1,10 +1,10 @@
 import { motion, Variants } from "framer-motion";
 import {
   Check,
-  DeleteCircledOutline,
+  DeleteCircle,
   InfoEmpty,
   NavArrowRight,
-  PlayOutline,
+  Play,
   Plus,
   ShareAndroid,
 } from "iconoir-react";
@@ -119,7 +119,7 @@ const MobileInfoModal = ({ category, id }: MobileInfoModalProps) => {
                     navigate(`/${category}/${data.id!}`);
                   }}>
                   <div className={styles["modal-icon"]}>
-                    <PlayOutline />
+                    <Play />
                   </div>
                   <span>Play</span>
                 </button>
@@ -157,7 +157,7 @@ const MobileInfoModal = ({ category, id }: MobileInfoModalProps) => {
             </Link>
           </div>
           <button className={styles["modal-close-btn"]} onClick={closeModal}>
-            <DeleteCircledOutline />
+            <DeleteCircle />
           </button>
         </motion.div>
       </Backdrop>

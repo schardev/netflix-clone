@@ -1,7 +1,7 @@
 import {
   Check,
   NavArrowDown,
-  PlayOutline,
+  Play,
   Plus,
   SoundHigh,
   SoundOff,
@@ -147,7 +147,7 @@ const DesktopInfoModal = ({
         isExpanded ? styles["big-player-menu"] : styles["mini-player-menu"]
       }>
       <button className={styles["play-btn"]}>
-        <PlayOutline />
+        <Play />
         {isExpanded && <span>Play</span>}
       </button>
       <button onClick={addToList}>

@@ -1,10 +1,4 @@
-import {
-  PauseOutline,
-  PlayOutline,
-  Plus,
-  ShareAndroid,
-  ThumbsUp,
-} from "iconoir-react";
+import { Pause, Play, Plus, ShareAndroid, ThumbsUp } from "iconoir-react";
 import { useRef, useState } from "react";
 import type ReactPlayer from "react-player";
 import { useParams } from "react-router-dom";
@@ -150,7 +144,7 @@ const InfoPage = () => {
           <button
             className={styles["info-section__play-btn"]}
             onClick={() => setPlaying(!playing)}>
-            {playing ? <PauseOutline /> : <PlayOutline />}
+            {playing ? <Pause /> : <Play />}
             <span>{playing ? "Pause" : "Play"}</span>
           </button>
         )}
