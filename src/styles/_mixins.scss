@@ -7,7 +7,15 @@
   transition: transform 100ms ease-in-out;
 
   &:active:hover {
-    transform: scale(0.9) translateZ(0px);
+    transform: scale(0.95) translateZ(0px);
+  }
+}
+
+%hide-scrollbars {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 
@@ -37,68 +45,42 @@
   }
 }
 
-// Media queries
+/**
+  * Create mixins from the map below with their respective breakpoints and
+  * media query.
+  *
+  * Usage:
+  *
+  * @mixin for('small-phone-only') {
+  *   // ... styles here ...
+  * }
+  *
+  * @mixin for('phone-only') {
+  *   // ... styles here ...
+  * }
+  *
+  */
 $media-queries: (
   "small-phone-only": "max-width: #{$width-xs}",
+  "small-phone-up": "min-width: #{$width-xs}",
   "phone-only": "max-width: #{$width-sm}",
   "phone-up": "min-width: #{$width-sm}",
   "tablet-only": "max-width: #{$width-md}",
   "tablet-up": "min-width: #{$width-md}",
   "desktop-only": "max-width: #{$width-lg}",
   "desktop-up": "min-width: #{$width-lg}",
+  "big-desktop-only": "max-width: #{$width-xl}",
   "big-desktop-up": "min-width: #{$width-xl}"
 );
 
-@mixin for($query) {
-  $_query: map.get($media-queries, $query);
-  @if $_query == null {
+@mixin for($_query) {
+  $query: map.get($media-queries, $_query);
+  @if $query == null {
     @error "Invalid query!";
   } @else {
-    @media ($_query) {
+    @media ($query) {
       @content;
     }
-  }
-}
-
-@mixin for-small-phone-only {
-  @media (max-width: $width-xs) {
-    @content;
-  }
-}
-
-@mixin for-phone-only {
-  @media (max-width: $width-sm) {
-    @content;
-  }
-}
-
-@mixin for-phone-up {
-  @media (min-width: $width-sm) {
-    @content;
-  }
-}
-
-@mixin for-tablet-only {
-  @media (max-width: $width-md) {
-    @content;
-  }
-}
-
-@mixin for-tablet-up {
-  @media (min-width: $width-md) {
-    @content;
-  }
-}
-
-@mixin for-desktop-up {
-  @media (min-width: $width-lg) {
-    @content;
-  }
-}
-
-@mixin for-big-desktop-up {
-  @media (min-width: $width-xl) {
-    @content;
   }
 }
 

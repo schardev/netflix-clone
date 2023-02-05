@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Card from "../components/Card";
 import { useMyListData } from "../contexts/MyListProvider";
 import styles from "../styles/list-page.module.scss";
+import sliderSyles from "../styles/slider.module.scss";
 
 const List = () => {
   const { myList } = useMyListData();
@@ -25,7 +26,7 @@ const List = () => {
         <>
           <main className={styles.main}>
             <h1>My List</h1>
-            <div className={styles.slider}>
+            <div className={sliderSyles["slider-carousel"]}>
               {/* https://stackoverflow.com/a/59459000 */}
               {myList.map((item) => {
                 return (

@@ -1,0 +1,33 @@
+@use "mixins" as *;
+
+.card {
+  position: relative;
+  width: calc(100% / var(--cards-to-show, 3) - var(--gap, 0.5rem));
+  aspect-ratio: 2 / 3;
+  flex-shrink: 0;
+  background-color: #222;
+  border-radius: 5px;
+  overflow: hidden; // to chop off img corners
+
+  img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -100%; // hide broken image styling till we apppend the src
+    transform: scale(0.95);
+    opacity: 0.5;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+}
+
+.loaded {
+  img {
+    top: 0;
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  &:hover:active {
+    @extend %tap-transition;
+  }
+}

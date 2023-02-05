@@ -88,7 +88,9 @@
 .big-motion-modal {
   position: fixed;
   inset: 0;
+  z-index: 1;
   overflow-y: scroll;
+  @extend %hide-scrollbars;
 }
 
 .big-modal-container {
@@ -195,6 +197,10 @@
 .sections {
   background-color: var(--color-background);
 
+  > *:not(:last-child) {
+    margin-bottom: 4rem;
+  }
+
   h2 {
     font-size: var(--step-0);
     margin-bottom: 1em;
@@ -208,8 +214,14 @@
   }
 
   .recommendation-section {
-    section {
-      padding: 0;
+    :global(.card) {
+      @include for("tablet-up") {
+        --cards-to-show: 4;
+      }
+
+      @include for("desktop-up") {
+        --cards-to-show: 6;
+      }
     }
   }
 
@@ -218,7 +230,6 @@
       display: grid;
       grid-template-columns: repeat(3, auto);
       gap: 1em 0.5em;
-      // align-items: center;
 
       :global(.video-frame) {
         margin: 0;
@@ -261,7 +272,7 @@
     position: absolute;
     bottom: 32%;
     left: var(--padding);
-    max-width: 50%
+    max-width: 50%;
   }
 
   &-controls {

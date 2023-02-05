@@ -12,7 +12,7 @@
   --color-accent: hsl(357, 92%, 47%);
   --grid-column-size: clamp(7.5rem, 10vw, 10rem);
 
-  @include for-tablet-up {
+  @include for("tablet-up") {
     --color-background: hsl(0, 0%, 8%);
     --color-background-values: 0, 0%, 8%;
   }
@@ -64,7 +64,7 @@ body {
   color: var(--color-primary);
   margin: 0 auto;
 
-  @include for-tablet-up {
+  @include for("tablet-up") {
     font-size: var(--step-1);
   }
 }

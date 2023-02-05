@@ -175,7 +175,6 @@ const DesktopInfoModal = ({
           ? { backgroundColor: "rgba(0,0,0,0.7)", transition: { delay: 0.3 } }
           : {}),
       }}
-      transition={{ type: "tween", duration: 0.3 }}
       exit={{ opacity: 0 }}
       style={!isExpanded ? { top: y, left: x } : {}}
       preventScroll={isExpanded}
@@ -264,19 +263,21 @@ const DesktopInfoModal = ({
               </div>
             </div>
             <div className={styles["sections"]}>
-              <div className={styles["episodes-section"]}>
-                <EpisodeSelector
-                  id={+id}
-                  seasons={numberOfSeasons}
-                  showHeading={true}
-                />
-              </div>
+              {category === "tv" && (
+                <div className={styles["episodes-section"]}>
+                  <EpisodeSelector
+                    id={+id}
+                    seasons={numberOfSeasons}
+                    showHeading={true}
+                  />
+                </div>
+              )}
               {data.recommendations.results!.length > 0 && (
                 <div className={styles["recommendation-section"]}>
                   <h2>More Like This</h2>
                   <Slider
                     endpoint={`${category}/${id}/recommendations`}
-                    flow="row"
+                    flow="column"
                   />
                 </div>
               )}

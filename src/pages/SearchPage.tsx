@@ -62,7 +62,7 @@ const SearchPage = () => {
               params={{
                 query,
               }}
-              flow="row"
+              flow="column"
             />
           </motion.div>
         )}

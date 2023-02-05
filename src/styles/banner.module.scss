@@ -6,7 +6,7 @@
   height: 60vh;
   margin-bottom: 1.5rem;
 
-  @include for-tablet-up {
+  @include for("tablet-up") {
     height: 100vh;
     margin-bottom: -10vh; // to bring the slider on top of the banner
   }
@@ -94,7 +94,7 @@
   width: 100%;
   padding: 0 1rem;
 
-  @include for-tablet-up {
+  @include for("tablet-up") {
     top: 50%;
     transform: translateY(-50%);
     left: 0;
@@ -106,7 +106,7 @@
   h1 {
     text-align: center;
 
-    @include for-tablet-up {
+    @include for("tablet-up") {
       text-align: left;
     }
   }
@@ -122,7 +122,7 @@
   &__logo {
     width: 50%;
 
-    @include for-tablet-up {
+    @include for("tablet-up") {
       width: 75%;
     }
   }
@@ -150,13 +150,13 @@
   font-size: var(--fs-min--1);
   user-select: none;
 
-  @include for-tablet-up {
+  @include for("tablet-up") {
     justify-content: flex-start;
     gap: 1em;
   }
 
   li {
-    @include for-phone-only {
+    @include for("phone-only") {
       transition: transform 100ms ease-in-out;
 
       &:active:hover {
@@ -172,7 +172,7 @@
       background-color: transparent;
       border-radius: $border-radius-1;
 
-      @include for-tablet-up {
+      @include for("tablet-up") {
         background-color: hsla(0, 0%, 40%, 0.7);
         font-size: var(--step-0);
         font-weight: 600;
@@ -198,7 +198,7 @@
   min-height: 60vh;
   margin-bottom: 1.5em;
 
-  @include for-tablet-up {
+  @include for("tablet-up") {
     min-height: 90vh;
     margin-bottom: -10vh; // to bring the slider on top of the banner
   }
@@ -215,7 +215,7 @@
   }
 
   > div {
-    @include for-tablet-up {
+    @include for("tablet-up") {
       display: none;
     }
   }

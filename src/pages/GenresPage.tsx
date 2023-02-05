@@ -31,7 +31,7 @@ const GenresPage = () => {
           params={{
             with_genres: id,
           }}
-          flow="row"
+          flow="column"
         />
       </div>
     </>

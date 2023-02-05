@@ -1,90 +1,64 @@
 @use "mixins" as *;
 @use "variables" as *;
 
-// TODO: make grids responsive
 .list-container {
-  padding: 0 1rem;
+  padding: 0 1rem 4.5rem;
 
-  @include for-tablet-up {
-    padding: 0 1rem 0 4vw;
+  @include for("tablet-up") {
+    padding: 0 min(4rem, 4vw) min(4rem, 4vw);
   }
 }
 
-.list-section {
-  display: grid;
-  grid-template-rows: auto 1fr;
-  gap: 1rem;
-
+.slider-container {
   &:not(:last-of-type) {
     margin-bottom: 1.5rem;
 
-    @include for-tablet-up {
-      margin-bottom: 5vh;
-    }
-  }
-
-  &:last-of-type {
-    margin-bottom: 10vh; // make some room for the navbar
-
-    @include for-tablet-up {
+    @include for("tablet-up") {
       margin-bottom: 5vh;
     }
   }
 
   h2 {
     text-transform: capitalize;
-    font-size: var(--step-1);
+    font-size: var(--step-0);
+    margin-bottom: 1em;
 
-    @include for-tablet-up {
-      font-size: var(--step-0);
+    @include for("tablet-up") {
       font-weight: 600;
     }
   }
-
-  &__slider {
-    display: grid;
-    gap: 0.5rem;
-
-    div[data-card-id] {
-      position: relative;
-      min-height: 185px;
-      @extend %tap-transition;
-
-      :global(.shimmer) {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-      }
-
-      img {
-        width: 100%;
-        height: 100%;
-        border-radius: $border-radius-2;
-      }
-    }
-
-    @supports (scrollbar-width: thin) {
-      scrollbar-width: thin;
-      scrollbar-color: var(--color-accent) #000;
-    }
-  }
 }
 
-.column-grid {
-  grid-auto-columns: var(--grid-column-size);
-  grid-auto-flow: column;
+.slider-carousel {
+  --cards-to-show: 3;
+  --gap: 0.5rem;
+
+  display: flex;
+  gap: var(--gap);
   overflow-x: scroll;
+  @extend %hide-scrollbars;
 
-  @include for-tablet-up {
-    &::-webkit-scrollbar {
-      display: none;
-    }
+  &__column {
+    flex-wrap: wrap;
   }
-}
 
-.row-grid {
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(var(--grid-column-size), 1fr)
-  );
+  @include for("small-phone-up") {
+    --cards-to-show: 3;
+  }
+
+  @include for("phone-up") {
+    --cards-to-show: 4;
+  }
+
+  @include for("tablet-up") {
+    --cards-to-show: 6;
+  }
+
+  @include for("desktop-up") {
+    --cards-to-show: 8;
+  }
+
+  @include for("big-desktop-up") {
+    --cards-to-show: 10;
+  }
 }

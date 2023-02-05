@@ -11,7 +11,7 @@
   background-color: #222;
   margin-bottom: 2em;
 
-  @include for-tablet-up {
+  @include for("tablet-up") {
     font-size: var(--step-0);
   }
 
@@ -36,7 +36,7 @@
 .search-list {
   padding: 0 1rem;
 
-  @include for-tablet-up {
+  @include for("tablet-up") {
     padding: 0 4vw;
   }
 }

@@ -1,5 +1,4 @@
 import useFetch from "../hooks/useFetch";
-import useMediaQuery from "../hooks/useMediaQuery";
 import { api } from "../lib/tmdb";
 import styles from "../styles/slider.module.scss";
 import type { MediaType, SliderQueries } from "../types/app";
@@ -21,7 +20,6 @@ type SliderProps = {
 
 const Slider = ({ title, endpoint, flow, params }: SliderProps) => {
   const searchParams = new URLSearchParams(params as any).toString();
-  const phoneOnly = useMediaQuery("phone-only");
   const { data, error } = useFetch<
     MovieListResponse | TVListResponse | PersonListResponse
   >(`${endpoint}/${searchParams}/slider`, ({ signal }) => {
@@ -40,15 +38,15 @@ const Slider = ({ title, endpoint, flow, params }: SliderProps) => {
   if (!data || !data.results?.length) return null;
 
   return (
-    <section className={styles["list-section"]}>
+    <section className={styles["slider-container"]}>
       {title && <h2>{title}</h2>}
       <div
         className={j(
-          styles["list-section__slider"],
-          flow === "row" ? styles["row-grid"] : styles["column-grid"]
+          styles["slider-carousel"],
+          flow === "column" ? styles["slider-carousel__column"] : ""
         )}>
         {data.results &&
-          data.results.map((item, idx) => {
+          data.results.map((item) => {
             let mediaType: MediaType | null = null;
             let imgSrc = (item as any).poster_path || "";
             let altText =
@@ -80,20 +78,12 @@ const Slider = ({ title, endpoint, flow, params }: SliderProps) => {
               return null;
             }
 
-            // Lazily load images that are out of viewport
-            // TODO: instead of guessing, maybe check if the item is visible
-            // inside the viewport
-            let lazyLoad = false;
-            if (((phoneOnly && idx > 4) || idx > 7) && flow !== "row") {
-              lazyLoad = true;
-            }
-
             return (
               <Card
+                key={item.id!}
                 cardId={item.id!}
                 mediaType={mediaType}
                 posterImg={imgSrc}
-                lazyLoad={lazyLoad}
                 alt={altText}
               />
             );

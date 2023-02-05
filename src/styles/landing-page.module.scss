@@ -7,7 +7,7 @@
   display: grid;
   padding-top: 5vh;
 
-  @include for-desktop-up {
+  @include for("desktop-up") {
     min-height: 80vh;
   }
 }
@@ -35,12 +35,12 @@
     margin-bottom: 0.5em;
   }
 
-  @include for-desktop-up {
+  @include for("desktop-up") {
     max-width: $width-xxl;
   }
 }
 
-@include for-desktop-up {
+@include for("desktop-up") {
   .padded-section:not(:last-child) {
     .section-content:not(.intro-section) {
       grid-template-columns: 1fr 1fr;
@@ -53,7 +53,7 @@
 }
 
 .intro-section {
-  @include for-desktop-up {
+  @include for("desktop-up") {
     max-width: 65ch;
   }
 }
@@ -118,7 +118,7 @@
 .get-started-form {
   margin: 1rem 0;
 
-  @include for-tablet-up {
+  @include for("tablet-up") {
     display: grid;
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr auto;
@@ -141,7 +141,7 @@
       outline: none;
     }
 
-    @include for-tablet-up {
+    @include for("tablet-up") {
       margin: 0;
     }
   }
@@ -152,7 +152,7 @@
     padding: 0.4rem 1.5rem 0.4rem 1rem;
     border: none;
 
-    @include for-tablet-up {
+    @include for("tablet-up") {
       font-size: var(--fs-max-0);
     }
 
@@ -170,7 +170,7 @@
   text-align: left;
   width: 100%;
 
-  @include for-tablet-up {
+  @include for("tablet-up") {
     width: clamp(10rem, 80vw, 50rem);
   }
 

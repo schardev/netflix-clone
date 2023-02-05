@@ -14,7 +14,7 @@ const ModalListener = () => {
   if (modalData.visible) {
     switch (modalData.category) {
       case "list":
-        outlet = <ListModal entries={[movieGenreEntries, tvGenreEntries]}/>;
+        outlet = <ListModal entries={[movieGenreEntries, tvGenreEntries]} />;
         break;
       case "tv":
       case "movie": {
