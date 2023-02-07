@@ -31,6 +31,7 @@ const List = () => {
               {myList.map((item) => {
                 return (
                   <Card
+                    key={item.id}
                     cardId={item.id}
                     mediaType={item.media_type}
                     posterImg={item.poster_path}
