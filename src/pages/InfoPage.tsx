@@ -116,6 +116,7 @@ const InfoPage = () => {
           videoKey={videos[0].key!}
           playing={playing}
           controls={true}
+          autoplay={false}
           onError={() => {
             console.log("error playing video");
           }}
@@ -229,7 +230,7 @@ const InfoPage = () => {
               <TabPanel value="recommendations-tab">
                 <Slider
                   endpoint={`${category}/${+id}/recommendations`}
-                  flow="row"
+                  flow="column"
                 />
               </TabPanel>
             )}

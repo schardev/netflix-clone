@@ -15,6 +15,17 @@
   & + * {
     position: relative;
   }
+
+  &::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    background-image: linear-gradient(
+      to top,
+      var(--color-background),
+      rgba(0, 0, 0, 0.25) 30%
+    );
+  }
 }
 
 .player {
@@ -23,9 +34,11 @@
   width: 100%;
   height: 100%;
   overflow: hidden; // since the player's aspect ratio is huge intentionally
+  transition: opacity 0.35s ease-in;
 
   &-control {
     position: absolute;
+    z-index: 1;
     right: 0;
     bottom: 20%;
     margin-right: 4vw;
@@ -43,53 +56,31 @@
     position: relative;
     aspect-ratio: 1920/1080;
     height: 140vh; // just a workaround to hide those black bars and youtube-y stuff
-
-    &::before {
-      position: absolute;
-      inset: 0;
-      content: "";
-      background-image: linear-gradient(
-        to top,
-        var(--color-background) 5%,
-        rgba(0, 0, 0, 0.25) 30%
-      );
-    }
   }
 }
 
 .banner-img {
   @include flex-center(column);
-  position: relative;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
   height: 100%;
+  width: 100%;
 
-  &::before {
-    position: absolute;
-    inset: 0;
-    content: "";
-    background-image: linear-gradient(
-      to top,
-      var(--color-background),
-      rgba(0, 0, 0, 0.25) 30%
-    );
-  }
-
-  :global(.shimmer) {
-    position: absolute;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-  }
-
-  &__backdrop {
+  img {
     height: 100%;
     width: 100%;
     object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
   }
 }
 
 .banner-info {
   @include flex-center(column);
   position: absolute;
+  z-index: 1;
   bottom: 0;
   width: 100%;
   padding: 0 1rem;
@@ -121,6 +112,8 @@
 
   &__logo {
     width: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
 
     @include for("tablet-up") {
       width: 75%;
@@ -171,6 +164,7 @@
       border: none;
       background-color: transparent;
       border-radius: $border-radius-1;
+      white-space: nowrap;
 
       @include for("tablet-up") {
         background-color: hsla(0, 0%, 40%, 0.7);
@@ -215,6 +209,7 @@
   }
 
   > div {
+    border-radius: 5px;
     @include for("tablet-up") {
       display: none;
     }

@@ -1,7 +1,9 @@
 import useIntersectionObserver from "../hooks/useIntersectionObserver";
+import useMediaQuery from "../hooks/useMediaQuery";
 import { api } from "../lib/tmdb";
 import styles from "../styles/card.module.scss";
 import type { MediaType } from "../types/app";
+import type { PosterSizes } from "../types/tmdb";
 import { j } from "../utils";
 
 const Card = ({
@@ -22,6 +24,8 @@ const Card = ({
       rootMargin: "0px 20px",
       once: true,
     });
+  const tabletUp = useMediaQuery("tablet-up");
+  const posterSize: PosterSizes = tabletUp ? "w342" : "w185";
 
   // NOTE: The only reason I'm not doing native `loading="lazy"` here is because
   // Firefox won't let me. The property, for some reason, has no effect in
@@ -33,7 +37,9 @@ const Card = ({
       data-card-id={cardId}
       data-card-media-type={mediaType}>
       <img
-        {...(isIntersecting && { src: api.getPosterURL(posterImg) })}
+        {...(isIntersecting && {
+          src: api.getPosterURL(posterImg, posterSize),
+        })}
         onLoad={() => {
           if (ref.current) {
             ref.current.classList.remove("shimmer");

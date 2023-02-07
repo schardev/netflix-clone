@@ -1,13 +1,13 @@
 import {
   Check,
   InfoEmpty,
+  Pause,
   Play,
   Plus,
   SoundHigh,
   SoundOff,
 } from "iconoir-react";
 import { PropsWithChildren, useRef, useState } from "react";
-import type ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
 import { ModalCategory, useModalDispatcher } from "../contexts/ModalContext";
 import { useMyListData, useMyListDispatcher } from "../contexts/MyListProvider";
@@ -16,14 +16,15 @@ import useMediaQuery from "../hooks/useMediaQuery";
 import { api } from "../lib/tmdb";
 import styles from "../styles/banner.module.scss";
 import type {
+  BackdropSizes,
   CustomURLSearchParams,
   Images,
+  LogoSizes,
   MovieDetails,
   TVDetails,
   Videos,
 } from "../types/tmdb";
 import { j } from "../utils";
-import ShimmerImg from "./ShimmerImg";
 import YouTubeIFrame from "./YouTubeIFrame";
 
 type BannerState =
@@ -32,7 +33,7 @@ type BannerState =
 
 const BannerShimmer = () => {
   return (
-    <div className={j(styles["banner-shimmer"], "shimmer")}>
+    <div className={j(styles["banner-shimmer"])}>
       <div className="shimmer"></div>
       <div className="shimmer"></div>
     </div>
@@ -59,8 +60,7 @@ const Banner = ({
   const setModalState = useModalDispatcher();
   const navigate = useNavigate();
   const tabletUp = useMediaQuery("tablet-up");
-  const [muted, setIsMuted] = useState(true);
-  const playerRef = useRef<ReactPlayer>(null);
+  const desktopUp = useMediaQuery("desktop-up");
   const { isLoading, data, error } = useFetch<BannerState>(
     `${endpoint}/${searchParams}/banner`,
     async ({ signal }) => {
@@ -89,6 +89,15 @@ const Banner = ({
     }
   );
 
+  // storing the videoKey makes sure we don't load a new video on every state
+  // change via mute/play toggle
+  const videoKey = useRef("");
+  const [{ playing, muted, showPlayer }, setPlayerState] = useState({
+    playing: false,
+    muted: true,
+    showPlayer: tabletUp,
+  });
+
   if (error) {
     console.error(error);
     return null;
@@ -103,49 +112,103 @@ const Banner = ({
     title = (data as TVDetails).name!;
   }
 
+  const logoSize: LogoSizes = desktopUp ? "w500" : tabletUp ? "w300" : "w185";
+  const backdropSize: BackdropSizes = desktopUp ? "w1280" : "w780";
   let logoPath: string | null = null;
   if (data?.images.logos && data.images.logos[0]) {
     logoPath = data.images.logos[0].file_path!;
   }
 
   let videos = data.videos.results!.length >= 1 ? data.videos?.results : null;
-  videos = null; // TEMP TODO, also use a slight delay to show banner video
+  if (videos && !videoKey.current) {
+    // randomly select any video key
+    videoKey.current = videos[Math.floor(videos.length * Math.random())].key!;
+  }
+
+  const handleAddList = () => {
+    dispatchToList({
+      type: "add",
+      payload: {
+        id: data.id!,
+        media_type: category,
+        poster_path: api.getPosterURL(data.poster_path),
+      },
+    });
+  };
+
+  const handlePlayerReady = () => {
+    // start player after a slight delay only if the player is visible
+    // and we aren't already playing it
+    setTimeout(() => {
+      if (!playing) {
+        setPlayerState((p) => ({ ...p, playing: p.showPlayer }));
+      }
+    }, 6000);
+  };
+
+  const handlePlayerError = () => {
+    // revert back to showing banner if failed to play the video
+    console.error("error playing video");
+    setPlayerState((p) => ({
+      ...p,
+      playing: false,
+      showPlayer: false,
+    }));
+  };
+
+  const handlePlayButtonClick = () => {
+    if (showPlayer) {
+      setPlayerState((p) => ({ ...p, playing: !p.playing }));
+    } else if (!tabletUp) {
+      navigate(`/${category}/${data.id}`);
+    }
+  };
+
+  const handleInfoClick = () => {
+    setPlayerState((p) => ({ ...p, playing: false }));
+    setModalState({
+      visible: true,
+      id: data.id!,
+      category: category,
+      expanded: true,
+    });
+  };
 
   return (
     <div className={styles["banner-container"]}>
-      {tabletUp && videos ? (
-        <div className={styles["player"]}>
+      {videoKey.current && showPlayer && (
+        <div
+          className={styles["player"]}
+          style={{ opacity: playing ? "1" : "0" }}>
           <YouTubeIFrame
-            ref={playerRef}
-            videoKey={videos[0].key}
-            playing={true}
+            videoKey={videoKey.current}
+            playing={playing}
             loop={true}
             muted={muted}
-            onError={() => {
-              console.log("error playing video");
-            }}
+            onReady={handlePlayerReady}
+            onError={handlePlayerError}
           />
           <div
             className={styles["player-control"]}
-            onClick={() => setIsMuted(!muted)}>
+            onClick={() => setPlayerState((p) => ({ ...p, muted: !p.muted }))}>
             {muted ? <SoundOff /> : <SoundHigh />}
           </div>
         </div>
-      ) : (
-        <div className={j(styles["banner-img"])}>
-          <ShimmerImg
-            className={styles["banner-img__backdrop"]}
-            src={api.getBackdropURL(data.backdrop_path, "w1280")}
-            alt={(data as any).title || (data as any).name}
-          />
-        </div>
       )}
+      <div className={j(styles["banner-img"])}>
+        <img
+          src={api.getBackdropURL(data.backdrop_path, backdropSize)}
+          alt={(data as any).title || (data as any).name}
+          onLoad={(e) => (e.currentTarget.style.opacity = "1")}
+        />
+      </div>
       <div className={styles["banner-info"]}>
         {logoPath ? (
           <img
             className={styles["banner-info__logo"]}
-            src={api.getLogoURL(logoPath)}
+            src={api.getLogoURL(logoPath, logoSize)}
             alt=""
+            onLoad={(e) => (e.currentTarget.style.opacity = "1")}
           />
         ) : (
           <h1>{title}</h1>
@@ -164,17 +227,7 @@ const Banner = ({
         <ul className={styles["banner-menu"]}>
           {!tabletUp && (
             <li>
-              <button
-                onClick={() => {
-                  dispatchToList({
-                    type: "add",
-                    payload: {
-                      id: data.id!,
-                      media_type: category,
-                      poster_path: api.getPosterURL(data.poster_path),
-                    },
-                  });
-                }}>
+              <button onClick={handleAddList}>
                 {isInList(data.id!, category) ? <Check /> : <Plus />}
                 <span>My List</span>
               </button>
@@ -183,21 +236,13 @@ const Banner = ({
           <li>
             <button
               className={styles["play-btn"]}
-              onClick={() => navigate(`/${category}/${data.id}`)}>
-              <Play />
-              <span>Play</span>
+              onClick={handlePlayButtonClick}>
+              {playing ? <Pause /> : <Play />}
+              <span>{playing ? "Pause" : "Play"}</span>
             </button>
           </li>
           <li>
-            <button
-              onClick={() =>
-                setModalState({
-                  visible: true,
-                  id: data.id!,
-                  category: category,
-                  expanded: true,
-                })
-              }>
+            <button onClick={handleInfoClick}>
               <InfoEmpty />
               <span>{tabletUp ? "More Info" : "Info"}</span>
             </button>

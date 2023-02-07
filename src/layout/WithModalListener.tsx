@@ -10,6 +10,8 @@ const WithModalListener = () => {
     const target = (e.target as HTMLElement).closest(
       "[data-card-id]"
     ) as HTMLElement;
+    if (!target) return;
+
     const cardId = target.dataset.cardId;
     const mediaType = target.dataset.cardMediaType as MediaType;
 

@@ -2,7 +2,10 @@
 
 .card {
   position: relative;
-  width: calc(100% / var(--cards-to-show, 3) - var(--gap, 0.5rem));
+  width: calc(
+    100% / var(--cards-to-show, 3) -
+      ((var(--cards-to-show) - 1) / var(--cards-to-show)) * var(--gap, 0.5rem)
+  );
   aspect-ratio: 2 / 3;
   flex-shrink: 0;
   background-color: #222;
