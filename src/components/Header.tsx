@@ -89,6 +89,7 @@ const Header = () => {
         {!isLandingPage && (
           <button
             className={styles["search-btn"]}
+            aria-label="Search"
             onClick={() => navigate("/search")}>
             <Search />
           </button>

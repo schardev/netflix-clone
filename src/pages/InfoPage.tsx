@@ -190,8 +190,7 @@ const InfoPage = () => {
           <button
             onClick={() =>
               shareLink({
-                // TODO: useLocation/useNavigation
-                url: `${window.location.origin}/${category}/${id}`,
+                url: window.location.href,
               })
             }>
             <ShareAndroid />
@@ -238,7 +237,7 @@ const InfoPage = () => {
               <TabPanel value="trailers-tab">
                 {videos.map((video) => {
                   return (
-                    <VideoFrame videoKey={video.key!} title={video.name!} />
+                    <VideoFrame key={video.key} videoKey={video.key!} title={video.name!} />
                   );
                 })}
               </TabPanel>

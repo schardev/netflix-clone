@@ -43,7 +43,7 @@ export class TMDB {
 
     if (query) {
       const urlParams = new URLSearchParams(
-        query as unknown as string // TODO
+        query as unknown as string
       ).toString();
       baseURL += `&${urlParams}`;
     }

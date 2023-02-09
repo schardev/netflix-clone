@@ -24,8 +24,6 @@ const Card = ({
       rootMargin: "0px 20px",
       once: true,
     });
-  const tabletUp = useMediaQuery("tablet-up");
-  const posterSize: PosterSizes = tabletUp ? "w342" : "w185";
 
   // NOTE: The only reason I'm not doing native `loading="lazy"` here is because
   // Firefox won't let me. The property, for some reason, has no effect in
@@ -38,7 +36,7 @@ const Card = ({
       data-card-media-type={mediaType}>
       <img
         {...(isIntersecting && {
-          src: api.getPosterURL(posterImg, posterSize),
+          src: api.getPosterURL(posterImg),
         })}
         onLoad={() => {
           if (ref.current) {
