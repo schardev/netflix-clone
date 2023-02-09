@@ -183,6 +183,7 @@ const DesktopInfoModal = ({
           setModalState({ visible: false });
         }
       }}
+      onPointerLeave={() => setModalState({ visible: false })}
       className={
         !isExpanded ? styles["mini-motion-modal"] : styles["big-motion-modal"]
       }>
