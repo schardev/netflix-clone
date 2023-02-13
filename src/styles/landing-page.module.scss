@@ -17,6 +17,10 @@
     linear-gradient(to top, #000, rgba(0, 0, 0, 0) 20%), url(/banner.jpg);
   background-position: center;
   background-size: cover;
+
+  .padded-section {
+    background-color: unset;
+  }
 }
 
 .padded-section {
@@ -24,6 +28,7 @@
   place-items: center;
   padding: 3rem 1.5rem;
   border-bottom: 8px solid #222;
+  background-color: #000;
 }
 
 .section-content {
@@ -61,6 +66,7 @@
 .tv-demo-wrapper,
 .watch-demo-wrapper {
   position: relative;
+  z-index: 1;
 }
 
 .tv-demo-video {

@@ -83,7 +83,11 @@ const Header = () => {
                 <option value="hindi">Hindi</option>
               </select>
             </div>
-            <button className={styles["sign-in-btn"]}>Sign In</button>
+            <button
+              className={styles["sign-in-btn"]}
+              onClick={() => navigate("/")}>
+              Sign In
+            </button>
           </>
         )}
         {!isLandingPage && (

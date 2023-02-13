@@ -1,6 +1,7 @@
 import {
   Check,
   NavArrowDown,
+  Pause,
   Play,
   Plus,
   SoundHigh,
@@ -50,7 +51,6 @@ const DesktopInfoModal = ({
   const { isInList } = useMyListData();
   const dispatchToList = useMyListDispatcher();
   const setModalState = useModalDispatcher();
-  const [muted, setIsMuted] = useState(true);
   const [isExpanded, setIsExpanded] = useState(expanded);
   const { data, isLoading } = useFetch(
     `${category}/${id}/desktopmodal`,
@@ -66,6 +66,10 @@ const DesktopInfoModal = ({
       );
     }
   );
+  const [{ playing, muted }, setPlayerState] = useState({
+    playing: true,
+    muted: true,
+  });
 
   if (!data || isLoading) return null;
 
@@ -146,9 +150,15 @@ const DesktopInfoModal = ({
       className={
         isExpanded ? styles["big-player-menu"] : styles["mini-player-menu"]
       }>
-      <button className={styles["play-btn"]}>
-        <Play />
-        {isExpanded && <span>Play</span>}
+      <button
+        className={styles["play-btn"]}
+        onClick={() => {
+          if (videos) {
+            setPlayerState((p) => ({ ...p, playing: !playing }));
+          }
+        }}>
+        {videos && playing ? <Pause /> : <Play />}
+        {isExpanded && <span>{playing ? "Pause" : "Play"}</span>}
       </button>
       <button onClick={addToList}>
         {isInList(data.id!, category) ? <Check /> : <Plus />}
@@ -183,7 +193,11 @@ const DesktopInfoModal = ({
           setModalState({ visible: false });
         }
       }}
-      onPointerLeave={() => setModalState({ visible: false })}
+      onPointerLeave={() => {
+        if (!isExpanded) {
+          // setModalState({ visible: false });
+        }
+      }}
       className={
         !isExpanded ? styles["mini-motion-modal"] : styles["big-motion-modal"]
       }>
@@ -197,7 +211,7 @@ const DesktopInfoModal = ({
           <div className={styles["player"]}>
             <YouTubeIFrame
               videoKey={videos[0].key!}
-              playing={true}
+              playing={playing}
               controls={false}
               muted={muted}
               loop={true}
@@ -211,7 +225,9 @@ const DesktopInfoModal = ({
               {isExpanded && buttons}
               <button
                 className={styles["mute-btn"]}
-                onClick={() => setIsMuted(!muted)}>
+                onClick={() =>
+                  setPlayerState((p) => ({ ...p, muted: !muted }))
+                }>
                 {muted ? <SoundOff /> : <SoundHigh />}
               </button>
             </div>

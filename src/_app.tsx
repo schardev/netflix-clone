@@ -4,7 +4,6 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import WithLayoutAnimation from "./layout/WithLayoutAnimation";
 import WithHeader from "./layout/WithHeader";
 import WithModalListener from "./layout/WithModalListener";
 import WithNavBar from "./layout/WithNavBar";
@@ -27,13 +26,11 @@ const router = createBrowserRouter(
         <Route element={<WithModalListener />}>
           <Route element={<WithHeader />}>
             <Route element={<WithNavBar />}>
-              <Route element={<WithLayoutAnimation />}>
-                <Route index element={<Homepage />} />
-                <Route path="login" element={<LandingPage />} />
-                <Route path="movie" element={<MoviePage />} />
-                <Route path="tv" element={<TVPage />} />
-                <Route path="genres/:category/:id" element={<GenresPage />} />
-              </Route>
+              <Route index element={<Homepage />} />
+              <Route path="login" element={<LandingPage />} />
+              <Route path="movie" element={<MoviePage />} />
+              <Route path="tv" element={<TVPage />} />
+              <Route path="genres/:category/:id" element={<GenresPage />} />
               <Route path=":category/:id" element={<InfoPage />} />
               <Route path="list" element={<List />} />
               <Route path="search" element={<SearchPage />} />

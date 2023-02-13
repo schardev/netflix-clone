@@ -56,6 +56,11 @@
     position: relative;
     aspect-ratio: 1920/1080;
     height: 140vh; // just a workaround to hide those black bars and youtube-y stuff
+
+    @media (max-height: $width-md) {
+      height: unset;
+      width: 100%;
+    }
   }
 }
 

@@ -35,7 +35,7 @@
 
   &__list {
     display: inline-flex;
-    gap: 1em;
+    gap: 1.5em;
 
     a {
       text-decoration: none;
@@ -107,6 +107,10 @@
 
 .genre {
   position: relative;
+
+  span {
+    cursor: pointer;
+  }
 
   &-popup {
     display: none;

@@ -3,14 +3,24 @@
 .card {
   position: relative;
   width: calc(
-    100% / var(--cards-to-show, 3) -
-      ((var(--cards-to-show) - 1) / var(--cards-to-show)) * var(--gap, 0.5rem)
+    (100% - var(--scroll-snap) * 2) / var(--cards-to-show) -
+      (var(--cards-to-show) - 1) / var(--cards-to-show) * var(--gap)
   );
   aspect-ratio: 2 / 3;
   flex-shrink: 0;
   background-color: #222;
   border-radius: 5px;
   overflow: hidden; // to chop off img corners
+  cursor: pointer;
+  scroll-snap-align: start;
+
+  &:first-of-type {
+    margin-left: var(--scroll-snap);
+  }
+
+  &:last-of-type {
+    margin-right: var(--scroll-snap);
+  }
 
   img {
     position: absolute;
