@@ -4,6 +4,7 @@ import Card from "../components/Card";
 import { useMyListData } from "../contexts/MyListProvider";
 import styles from "../styles/list-page.module.scss";
 import sliderSyles from "../styles/slider.module.scss";
+import { j } from "../utils";
 
 const List = () => {
   const { myList } = useMyListData();
@@ -24,7 +25,7 @@ const List = () => {
         </div>
       ) : (
         <>
-          <main className={styles.main}>
+          <main className={j(sliderSyles["slider-container"] ,styles.main)}>
             <h1>My List</h1>
             <div className={sliderSyles["slider-carousel"]}>
               {/* https://stackoverflow.com/a/59459000 */}

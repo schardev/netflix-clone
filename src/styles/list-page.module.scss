@@ -17,6 +17,10 @@
   div {
     flex-wrap: wrap;
   }
+
+  :global(.card) {
+    margin: 0;
+  }
 }
 
 .no-list {

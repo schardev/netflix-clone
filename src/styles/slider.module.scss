@@ -50,6 +50,14 @@
 
   &__column {
     flex-wrap: wrap;
+
+    :global(.card) {
+      margin: 0 !important;
+      width: calc(
+        100% / var(--cards-to-show) -
+          ((var(--cards-to-show) - 1) / var(--cards-to-show)) * var(--gap)
+      ); // pls don't do this, this is abomination
+    }
   }
 
   @include for("small-phone-up") {
