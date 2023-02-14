@@ -21,18 +21,21 @@ type SliderProps = {
   flow?: "row" | "column";
 } & SliderQueries;
 
+type SliderData = MovieListResponse | TVListResponse | PersonListResponse;
+
 const Slider = ({ title, endpoint, flow, params }: SliderProps) => {
   const searchParams = new URLSearchParams(params as any).toString();
   const tabletUp = useMediaQuery("tablet-up");
   const carouselRef = useRef<HTMLDivElement>(null);
-  const { data, error } = useFetch<
-    MovieListResponse | TVListResponse | PersonListResponse
-  >(`${endpoint}/${searchParams}/slider`, ({ signal }) => {
-    return api.makeRequest(endpoint, {
-      query: params,
-      init: { signal },
-    });
-  });
+  const { data, error } = useFetch<SliderData>(
+    `${endpoint}/${searchParams}/slider`,
+    ({ signal }) => {
+      return api.makeRequest(endpoint, {
+        query: params,
+        init: { signal },
+      });
+    }
+  );
 
   // whether slider carousel buttons should be enabled or not
   const [carouselBtnState, setCarouselBtnState] = useState({
@@ -126,20 +129,22 @@ const Slider = ({ title, endpoint, flow, params }: SliderProps) => {
                 mediaType = "tv";
               } else if (endpoint.includes("multi")) {
                 const multi = item as MultiListResponse;
-                if (multi.media_type) {
-                  mediaType = multi.media_type;
+                mediaType = multi.media_type;
 
-                  // person object doesn't have a poster_path
-                  if (mediaType === "person") {
-                    imgSrc = (item as PersonListResult).profile_path!;
-                  }
+                // person object doesn't have a poster_path
+                if (mediaType === "person") {
+                  imgSrc = (item as PersonListResult).profile_path!;
                 }
               }
 
               // if mediaType is still null that means either the endpoint is invalid
               // or the data doesn't include media_type (which it should)
               if (!mediaType) {
-                console.error("Unhandled item category found: ", item);
+                console.error(
+                  "Unhandled item category found: ",
+                  item,
+                  endpoint
+                );
                 return null;
               }
 

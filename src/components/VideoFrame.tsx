@@ -1,6 +1,5 @@
 import { Play } from "iconoir-react";
 import useMediaQuery from "../hooks/useMediaQuery";
-import ShimmerImg from "./ShimmerImg";
 
 type VideoFrameProps = {
   title: string;
@@ -21,7 +20,7 @@ const VideoFrame = ({
     <div className="video-frame">
       <a href={`https://www.youtube.com/watch?v=${videoKey}`} target="_blank">
         <div className="video-frame__img">
-          <ShimmerImg src={`https://i.ytimg.com/vi/${videoKey}/${size}.jpg`} />
+          <img src={`https://i.ytimg.com/vi/${videoKey}/${size}.jpg`} />
           <Play />
         </div>
       </a>

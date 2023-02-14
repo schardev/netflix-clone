@@ -7,8 +7,12 @@ import styles from "../styles/slider.module.scss";
 const GenresPage = () => {
   const { category, id } = useParams();
 
-  // TODO: throw 404
-  if ((category !== "movie" && category !== "tv") || !id) return null;
+  if ((category !== "movie" && category !== "tv") || !id) {
+    throw new Response(
+      `Invalid category route or id provided: ${category} - ${id}`,
+      { status: 404, statusText: "Not Found" }
+    );
+  }
 
   let genreName: string;
   if (category === "movie") {

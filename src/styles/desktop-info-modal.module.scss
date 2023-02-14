@@ -241,6 +241,22 @@
   }
 }
 
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  border-radius: 100vh;
+  opacity: 0.5;
+  padding: 0.15em;
+  background-color: var(--color-background);
+  transition: opacity 0.3s ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
 /* Utility styles */
 .span {
   &-match {

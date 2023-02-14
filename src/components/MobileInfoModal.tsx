@@ -101,7 +101,9 @@ const MobileInfoModal = ({ category, id }: MobileInfoModalProps) => {
           animate="animate"
           exit="exit">
           <div className={styles["modal-info"]}>
-            <img src={api.getPosterURL(data.poster_path!)} />
+            <div className={styles["modal-info__img"]}>
+              <img src={api.getPosterURL(data.poster_path!)} />
+            </div>
             <div className={styles["modal-info__details"]}>
               <h4>{title}</h4>
               {releaseYear && <span>{releaseYear}</span>}

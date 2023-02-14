@@ -64,11 +64,6 @@ const Banner = ({
   const { isLoading, data, error } = useFetch<BannerState>(
     `${endpoint}/${searchParams}/banner`,
     async ({ signal }) => {
-      const defaultParams = {
-        language: "en",
-        append_to_response: "images,videos",
-      };
-
       let res = await api.makeRequest(endpoint, {
         query: params,
         init: { signal },
@@ -79,7 +74,8 @@ const Banner = ({
 
       let item = await api.makeRequest(`${category}/${randomItemId}`, {
         query: {
-          ...defaultParams,
+          language: "en",
+          append_to_response: "images,videos",
           ...params,
         },
         init: { signal },

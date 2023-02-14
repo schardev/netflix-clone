@@ -36,9 +36,10 @@ const InfoPage = () => {
   const playerRef = useRef<ReactPlayer>(null);
 
   if ((category !== "movie" && category !== "tv") || !id) {
-    // TODO: throw not found
-    console.error("Invalid category route or id provided!", category, id);
-    return null;
+    throw new Response(
+      `Invalid category route or id provided: ${category} - ${id}`,
+      { status: 404, statusText: 'Not Found' }
+    );
   }
 
   const { error, data, isLoading } = useFetch(
@@ -237,7 +238,11 @@ const InfoPage = () => {
               <TabPanel value="trailers-tab">
                 {videos.map((video) => {
                   return (
-                    <VideoFrame key={video.key} videoKey={video.key!} title={video.name!} />
+                    <VideoFrame
+                      key={video.key}
+                      videoKey={video.key!}
+                      title={video.name!}
+                    />
                   );
                 })}
               </TabPanel>

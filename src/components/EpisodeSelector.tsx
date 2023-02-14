@@ -4,7 +4,6 @@ import useFetch from "../hooks/useFetch";
 import { api } from "../lib/tmdb";
 import styles from "../styles/episode-selector.module.scss";
 import type { TVSeasons } from "../types/tmdb";
-import ShimmerImg from "./ShimmerImg";
 
 const EpisodeSelector = ({
   id,
@@ -66,7 +65,7 @@ const EpisodeSelector = ({
                 <li className={styles.episode} key={episode.id}>
                   <div className={styles.episode__info}>
                     <div className={styles["episode__info--img"]}>
-                      <ShimmerImg
+                      <img
                         src={api.getStillURL(episode.still_path)}
                         alt={episode.name}
                       />
