@@ -6,7 +6,6 @@
 
   @include for("tablet-up") {
     padding: 0;
-    // padding: 0 min(4rem, 4vw) min(4rem, 4vw);
   }
 }
 
@@ -29,10 +28,10 @@
     text-transform: capitalize;
     font-size: var(--step-0);
     margin-bottom: 1em;
-    padding-left: var(--scroll-snap);
 
     @include for("tablet-up") {
       font-weight: 600;
+      padding-left: var(--scroll-snap);
     }
   }
 }

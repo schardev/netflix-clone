@@ -20,8 +20,7 @@ const Card = ({
 } & React.ImgHTMLAttributes<HTMLImageElement>) => {
   const { ref, setRef, isIntersecting } =
     useIntersectionObserver<HTMLDivElement>({
-      threshold: 0.1,
-      rootMargin: "0px 20px",
+      threshold: 0.05,
       once: true,
     });
 

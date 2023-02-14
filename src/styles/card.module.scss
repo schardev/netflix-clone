@@ -14,12 +14,14 @@
   cursor: pointer;
   scroll-snap-align: start;
 
-  &:first-of-type {
-    margin-left: var(--scroll-snap);
-  }
+  @include for("tablet-up") {
+    &:first-of-type {
+      margin-left: var(--scroll-snap);
+    }
 
-  &:last-of-type {
-    margin-right: var(--scroll-snap);
+    &:last-of-type {
+      margin-right: var(--scroll-snap);
+    }
   }
 
   img {
