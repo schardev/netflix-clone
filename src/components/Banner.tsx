@@ -109,7 +109,7 @@ const Banner = ({
   }
 
   const logoSize: LogoSizes = desktopUp ? "w500" : tabletUp ? "w300" : "w185";
-  const backdropSize: BackdropSizes = desktopUp ? "w1280" : "w780";
+  const backdropSize: BackdropSizes = tabletUp ? "w1280" : "w780";
   let logoPath: string | null = null;
   if (data?.images.logos && data.images.logos[0]) {
     logoPath = data.images.logos[0].file_path!;
