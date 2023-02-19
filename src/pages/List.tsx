@@ -19,13 +19,11 @@ const List = () => {
             Add movies & TV shows to your list so you can easily find them
             later.
           </p>
-          <button onClick={() => navigate("/")}>
-            Find something to to watch
-          </button>
+          <button onClick={() => navigate("/")}>Find something to watch</button>
         </div>
       ) : (
         <>
-          <main className={j(sliderSyles["slider-container"] ,styles.main)}>
+          <main className={j(sliderSyles["slider-container"], styles.main)}>
             <h1>My List</h1>
             <div className={sliderSyles["slider-carousel"]}>
               {/* https://stackoverflow.com/a/59459000 */}

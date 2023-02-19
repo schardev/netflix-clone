@@ -1,8 +1,3 @@
-// NOTE: I know we should probably get these from the api so that when the configuration
-// changes we always get the right updated endpoints, but it feels somehow wrong
-// to me to do a network request just to get image url/sizes or genre ids
-// (which won't be changing much often).
-// Will propably find a better way to cache this and use from the api itself.
 export const TMDB_CONFIG = {
   images: {
     base_url: "http://image.tmdb.org/t/p/",
