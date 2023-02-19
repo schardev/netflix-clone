@@ -1,1 +1,5 @@
 @use "mixins" as *;
+
+.genre-list-container {
+  padding: 0 min(4rem, 4vw);
+}
