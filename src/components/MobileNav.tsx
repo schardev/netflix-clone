@@ -4,7 +4,7 @@ import { useModalDispatcher } from "../contexts/ModalContext";
 import styles from "../styles/mobile-nav.module.scss";
 
 export const navLinks = [
-  { text: "Home", to: "/", icon: <HomeSimple /> },
+  { text: "Home", to: "/browse", icon: <HomeSimple /> },
   { text: "TV Shows", to: "/tv", icon: <Tv /> },
   { text: "Movies", to: "/movie", icon: <CinemaOld /> },
   { text: "My List", to: "/list", icon: <List /> },

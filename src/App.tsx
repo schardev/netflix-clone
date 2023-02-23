@@ -25,9 +25,9 @@ const router = createBrowserRouter(
       <Route element={<WithMyList />}>
         <Route element={<WithModalListener />}>
           <Route element={<WithHeader />}>
+            <Route index element={<LandingPage />} />
             <Route element={<WithNavBar />}>
-              <Route index element={<Homepage />} />
-              <Route path="login" element={<LandingPage />} />
+              <Route path="browse" element={<Homepage />} />
               <Route path="movie" element={<MoviePage />} />
               <Route path="tv" element={<TVPage />} />
               <Route path="genres/:category/:id" element={<GenresPage />} />

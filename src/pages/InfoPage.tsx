@@ -1,4 +1,11 @@
-import { Pause, Play, Plus, ShareAndroid, ThumbsUp } from "iconoir-react";
+import {
+  Check,
+  Pause,
+  Play,
+  Plus,
+  ShareAndroid,
+  ThumbsUp,
+} from "iconoir-react";
 import { useRef, useState } from "react";
 import type ReactPlayer from "react-player";
 import { useParams } from "react-router-dom";
@@ -14,6 +21,7 @@ import {
 } from "../components/Tabs";
 import VideoFrame from "../components/VideoFrame";
 import YouTubeIFrame from "../components/YouTubeIFrame";
+import { useMyListData, useMyListDispatcher } from "../contexts/MyListProvider";
 import useFetch from "../hooks/useFetch";
 import { api } from "../lib/tmdb";
 import styles from "../styles/infopage.module.scss";
@@ -34,11 +42,13 @@ const InfoPage = () => {
   const { category, id } = useParams();
   const [playing, setPlaying] = useState(false);
   const playerRef = useRef<ReactPlayer>(null);
+  const { isInList } = useMyListData();
+  const dispatchToList = useMyListDispatcher();
 
   if ((category !== "movie" && category !== "tv") || !id) {
     throw new Response(
       `Invalid category route or id provided: ${category} - ${id}`,
-      { status: 404, statusText: 'Not Found' }
+      { status: 404, statusText: "Not Found" }
     );
   }
 
@@ -108,6 +118,17 @@ const InfoPage = () => {
     }
     if (!director.length) director = "TBA";
   }
+
+  const handleListAdd = () => {
+    dispatchToList({
+      type: "add",
+      payload: {
+        id: data.id!,
+        media_type: category,
+        poster_path: api.getPosterURL(data.poster_path),
+      },
+    });
+  };
 
   return (
     <main className={styles.main}>
@@ -180,8 +201,8 @@ const InfoPage = () => {
           </ul>
         </div>
         <div className={styles["info-section__actions"]}>
-          <button>
-            <Plus />
+          <button onClick={handleListAdd}>
+            {isInList(data.id!, category) ? <Check /> : <Plus />}
             <span>My List</span>
           </button>
           <button>

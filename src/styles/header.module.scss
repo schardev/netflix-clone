@@ -24,7 +24,7 @@
   @include for("tablet-up") {
     left: 0;
     right: 0;
-    padding: 0.75rem 4vw;
+    padding: 2vh 4vw;
   }
 }
 
@@ -49,7 +49,7 @@
 }
 
 .nav-right {
-  color: white;
+  display: flex;
 }
 
 .nf-logo {

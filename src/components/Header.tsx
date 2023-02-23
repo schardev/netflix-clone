@@ -8,8 +8,8 @@ import { navLinks } from "./MobileNav";
 
 const Header = () => {
   const headerRef = useRef<HTMLElement>(null);
-  const isLandingPage = useLocation().pathname.slice(1) === "login";
-  const isSearchPage = useLocation().pathname.slice(1) === "search";
+  const isLandingPage = useLocation().pathname === "/";
+  const isSearchPage = useLocation().pathname === "/search";
   const navigate = useNavigate();
   const matches = useMediaQuery("tablet-up");
   const popRef = useRef<HTMLDivElement>(null);
@@ -86,7 +86,7 @@ const Header = () => {
             </div>
             <button
               className={styles["sign-in-btn"]}
-              onClick={() => navigate("/")}>
+              onClick={() => navigate("/browse")}>
               Sign In
             </button>
           </>
