@@ -7,7 +7,7 @@ type YouTubeIFrameProps = ReactPlayerProps & {
 };
 
 const YouTubeIFrame = forwardRef<ReactPlayer, YouTubeIFrameProps>(
-  ({ videoKey, autoplay, ...props }, ref) => {
+  function YouTubeIFrame({ videoKey, autoplay, ...props }, ref) {
     const YT_URL = "https://www.youtube.com/watch?v=";
 
     if (!videoKey) {

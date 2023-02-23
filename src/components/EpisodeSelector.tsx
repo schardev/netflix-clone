@@ -60,7 +60,7 @@ const EpisodeSelector = ({
           initial={{ y: 50, opacity: 0.5 }}
           animate={{ y: 0, opacity: 1 }}>
           {data.episodes &&
-            data.episodes.map((episode, _idx) => {
+            data.episodes.map((episode) => {
               return (
                 <li className={styles.episode} key={episode.id}>
                   <div className={styles.episode__info}>

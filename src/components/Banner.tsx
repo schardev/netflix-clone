@@ -44,7 +44,7 @@ const Banner = ({
   endpoint,
   params = {},
 }: PropsWithChildren<{ endpoint: string; params?: CustomURLSearchParams }>) => {
-  const searchParams = new URLSearchParams(params as any);
+  const searchParams = new URLSearchParams(params as unknown as string);
 
   let category: Exclude<ModalCategory, "list">;
   if (endpoint.includes("movie")) {
@@ -64,15 +64,15 @@ const Banner = ({
   const { isLoading, data, error } = useFetch<BannerState>(
     `${endpoint}/${searchParams}/banner`,
     async ({ signal }) => {
-      let res = await api.makeRequest(endpoint, {
+      const res = await api.makeRequest(endpoint, {
         query: params,
         init: { signal },
       });
 
-      let randomItemId =
+      const randomItemId =
         res.results[Math.floor(Math.random() * res.results.length)].id;
 
-      let item = await api.makeRequest(`${category}/${randomItemId}`, {
+      const item = await api.makeRequest(`${category}/${randomItemId}`, {
         query: {
           language: "en",
           append_to_response: "images,videos",
@@ -115,7 +115,7 @@ const Banner = ({
     logoPath = data.images.logos[0].file_path!;
   }
 
-  let videos = data.videos.results!.length >= 1 ? data.videos?.results : null;
+  const videos = data.videos.results!.length >= 1 ? data.videos?.results : null;
   if (videos && !videoKey.current) {
     // randomly select any video key
     videoKey.current = videos[Math.floor(videos.length * Math.random())].key!;

@@ -54,7 +54,7 @@ const MobileInfoModal = ({ category, id }: MobileInfoModalProps) => {
   let season = 0;
 
   if (category === "tv") {
-    let tvShow = data as TVDetails;
+    const tvShow = data as TVDetails;
     releaseYear = tvShow.first_air_date
       ? new Date(tvShow.first_air_date!).getFullYear()
       : "TBA";
@@ -64,15 +64,15 @@ const MobileInfoModal = ({ category, id }: MobileInfoModalProps) => {
     title = tvShow.name!;
     season = tvShow.number_of_seasons || 0;
   } else {
-    let movie = data as MovieDetails;
+    const movie = data as MovieDetails;
     releaseYear = movie.release_date
       ? new Date(movie.release_date).getFullYear()
       : "";
     title = movie.title!;
 
     if (movie.runtime) {
-      let _hr = (movie.runtime / 60).toFixed();
-      let _min = movie.runtime % 60;
+      const _hr = (movie.runtime / 60).toFixed();
+      const _min = movie.runtime % 60;
       runtime = `${_hr}h ${_min}min`;
     }
   }

@@ -168,11 +168,11 @@ export class TMDB {
     genreID: number | number[],
     options: MakeRequestOptions = {}
   ): Promise<MovieListResponse | TVListResponse> {
-    let { query, init } = options;
-    query = {
+    const { query: _query, init } = options;
+    const query = {
       with_genres: genreID,
       sort_by: "popularity.desc",
-      ...query,
+      ..._query,
     };
     return this.makeRequest(`discover/${endpoint}`, { query, init });
   }

@@ -117,7 +117,7 @@ const Slider = ({ title, endpoint, flow, params }: SliderProps) => {
             data.results.map((item) => {
               let mediaType: MediaType | null = null;
               let imgSrc = (item as any).poster_path || "";
-              let altText =
+              const altText =
                 (item as PersonListResult | TVListResult).name ||
                 (item as MovieListResult).title ||
                 "";

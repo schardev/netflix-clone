@@ -79,7 +79,7 @@ const DesktopInfoModal = ({
   let numberOfSeasons = 1;
   const cast = data.credits.cast;
   const crew = data.credits.crew;
-  let starring = cast ? cast.slice(0, 4) : [];
+  const starring = cast ? cast.slice(0, 4) : [];
   let director: Credits["crew"] | string = [];
 
   let logoPath: string | null = null;
@@ -88,7 +88,7 @@ const DesktopInfoModal = ({
   }
 
   if (category === "tv") {
-    let tvShow = data as TVDetails;
+    const tvShow = data as TVDetails;
     runtime = tvShow.number_of_episodes
       ? `${tvShow.number_of_episodes} Episodes`
       : "";
@@ -96,12 +96,12 @@ const DesktopInfoModal = ({
     season = tvShow.number_of_seasons || 0;
     numberOfSeasons = tvShow.number_of_seasons || 1;
   } else {
-    let movie = data as MovieDetails;
+    const movie = data as MovieDetails;
     title = movie.title!;
 
     if (movie.runtime) {
-      let _hr = (movie.runtime / 60).toFixed();
-      let _min = movie.runtime % 60;
+      const _hr = (movie.runtime / 60).toFixed();
+      const _min = movie.runtime % 60;
       runtime = `${_hr}h ${_min}min`;
     }
   }
@@ -274,7 +274,7 @@ const DesktopInfoModal = ({
                     <span className={styles["span-title"]}>Cast: </span>
                     {starring.map((star, idx) => {
                       return (
-                        <span>
+                        <span key={star.id}>
                           {star.name}
                           {starring.length - 1 !== idx && ", "}
                         </span>
@@ -286,7 +286,7 @@ const DesktopInfoModal = ({
                   <div>
                     <span className={styles["span-title"]}>Genre: </span>
                     {data.genres.map((genre, idx) => (
-                      <span>
+                      <span key={genre.id}>
                         {genre.name}
                         {data.genres!.length - 1 !== idx && ", "}
                       </span>
@@ -341,7 +341,7 @@ const DesktopInfoModal = ({
                     {category === "tv" ? "Creators: " : "Director: "}
                   </span>
                   {director.map((crew, idx) => (
-                    <span>
+                    <span key={crew.id}>
                       {crew.name}
                       {director!.length - 1 !== idx && ", "}
                     </span>
@@ -353,7 +353,7 @@ const DesktopInfoModal = ({
                   <span className={styles["span-title"]}>Cast: </span>
                   {cast.map((star, idx) => {
                     return (
-                      <span>
+                      <span key={star.id}>
                         {star.name}
                         {starring.length - 1 !== idx && ", "}
                       </span>
@@ -365,7 +365,7 @@ const DesktopInfoModal = ({
                 <div>
                   <span className={styles["span-title"]}>Genre: </span>
                   {data.genres.map((genre, idx) => (
-                    <span>
+                    <span key={genre.id}>
                       {genre.name}
                       {data.genres!.length - 1 !== idx && ", "}
                     </span>

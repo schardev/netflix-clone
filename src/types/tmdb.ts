@@ -20,10 +20,10 @@ export type CustomURLSearchParams = Record<
   string | number | (string | number)[] | boolean
 >;
 
-export type PosterSizes = typeof TMDB_CONFIG.images.poster_sizes[number];
-export type LogoSizes = typeof TMDB_CONFIG.images.logo_sizes[number];
-export type BackdropSizes = typeof TMDB_CONFIG.images.backdrop_sizes[number];
-export type StillSizes = typeof TMDB_CONFIG.images.still_sizes[number];
+export type PosterSizes = (typeof TMDB_CONFIG.images.poster_sizes)[number];
+export type LogoSizes = (typeof TMDB_CONFIG.images.logo_sizes)[number];
+export type BackdropSizes = (typeof TMDB_CONFIG.images.backdrop_sizes)[number];
+export type StillSizes = (typeof TMDB_CONFIG.images.still_sizes)[number];
 export type ImageSizes = PosterSizes | LogoSizes | BackdropSizes | StillSizes;
 
 export type GenericEndpoints = "latest" | "popular" | "top_rated";
@@ -105,7 +105,7 @@ export interface PersonListResult {
 export interface MovieDetails {
   adult?: boolean;
   backdrop_path?: string | null;
-  belongs_to_collection?: null | {};
+  belongs_to_collection?: null;
   budget?: number;
   genres?: { id?: number; name?: string }[];
   homepage?: string | null;

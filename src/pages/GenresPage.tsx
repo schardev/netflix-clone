@@ -30,7 +30,11 @@ const GenresPage = () => {
   return (
     <>
       <Banner endpoint={`discover/${category}`} params={{ with_genres: id }} />
-      <div className={j(sliderStyles["list-container"], styles["genre-list-container"])}>
+      <div
+        className={j(
+          sliderStyles["list-container"],
+          styles["genre-list-container"]
+        )}>
         <Slider
           title={genreName.split("_").join(" ").toLowerCase()} // TODO
           endpoint={`discover/${category}`}

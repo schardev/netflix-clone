@@ -1,16 +1,13 @@
 import useIntersectionObserver from "../hooks/useIntersectionObserver";
-import useMediaQuery from "../hooks/useMediaQuery";
 import { api } from "../lib/tmdb";
 import styles from "../styles/card.module.scss";
 import type { MediaType } from "../types/app";
-import type { PosterSizes } from "../types/tmdb";
 import { j } from "../utils";
 
 const Card = ({
   cardId,
   mediaType,
   posterImg,
-  lazyLoad = false,
   ...restProps
 }: {
   cardId: number;

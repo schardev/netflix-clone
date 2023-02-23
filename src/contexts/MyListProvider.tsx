@@ -66,6 +66,7 @@ const reducer = (state: MyList[], action: ListDispatchAction) => {
         break;
       }
     }
+    // eslint-disable-next-line no-fallthrough
     case "remove": {
       newState = state.filter((item) => {
         if (
@@ -89,7 +90,7 @@ const reducer = (state: MyList[], action: ListDispatchAction) => {
 
 const MyListProvider = ({ children }: PropsWithChildren) => {
   const storageList = window.localStorage.getItem("my-list");
-  let parsedList = storageList ? JSON.parse(storageList) : [];
+  const parsedList = storageList ? JSON.parse(storageList) : [];
   const [myList, dispatch] = useReducer(reducer, parsedList);
 
   // Utility function to check if an item is already present in the list

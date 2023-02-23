@@ -18,7 +18,9 @@ type TabContext = {
 
 const TabData = createContext<TabContext>({
   data: { activeTabId: null },
-  setData: () => {},
+  setData: () => {
+    return;
+  },
 });
 
 export const TabsContainer = ({ children }: PropsWithChildren) => {

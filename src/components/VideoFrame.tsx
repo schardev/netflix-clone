@@ -18,7 +18,10 @@ const VideoFrame = ({
 
   return (
     <div className="video-frame">
-      <a href={`https://www.youtube.com/watch?v=${videoKey}`} target="_blank">
+      <a
+        href={`https://www.youtube.com/watch?v=${videoKey}`}
+        target="_blank"
+        rel="noreferrer">
         <div className="video-frame__img">
           <img src={`https://i.ytimg.com/vi/${videoKey}/${size}.jpg`} />
           <Play />

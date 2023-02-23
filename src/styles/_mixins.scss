@@ -70,7 +70,7 @@ $media-queries: (
   "desktop-only": "max-width: #{$width-lg}",
   "desktop-up": "min-width: #{$width-lg}",
   "big-desktop-only": "max-width: #{$width-xl}",
-  "big-desktop-up": "min-width: #{$width-xl}"
+  "big-desktop-up": "min-width: #{$width-xl}",
 );
 
 @mixin for($_query) {

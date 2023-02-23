@@ -75,13 +75,13 @@ const InfoPage = () => {
   // TODO: break this into utility function
   let title: string;
   let releaseDate: number | string;
-  let runtime: string = "TBA";
+  let runtime = "TBA";
   let season: number | null = null;
   const cast = data.credits.cast;
   const crew = data.credits.crew;
   const recommendations = data.recommendations.results ?? [];
   const videos = data.videos.results!.length >= 1 ? data.videos.results : null;
-  let starring = cast ? cast.slice(0, 4) : "TBA";
+  const starring = cast ? cast.slice(0, 4) : "TBA";
   let director: Credits["crew"] | string = [];
   let numberOfSeasons = 1;
 
@@ -90,8 +90,8 @@ const InfoPage = () => {
     title = movieData.title ? movieData.title : "TBA";
     releaseDate = new Date(movieData.release_date!).getFullYear() || "TBA";
     if (movieData.runtime) {
-      let _hr = (movieData.runtime / 60).toFixed();
-      let _min = movieData.runtime % 60;
+      const _hr = (movieData.runtime / 60).toFixed();
+      const _min = movieData.runtime % 60;
       runtime = `${_hr}h ${_min}min`;
     }
   } else {
