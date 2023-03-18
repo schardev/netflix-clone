@@ -1,3 +1,8 @@
 module.exports = {
-  plugins: [require("autoprefixer")],
+  plugins: [
+    require('postcss-modular-type')({
+      prefix: 'step-'
+    }),
+    require("autoprefixer")
+  ],
 };
