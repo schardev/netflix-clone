@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Form, useSearchParams, useSubmit } from "react-router-dom";
+import { useState } from "react";
+import { Form } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { api } from "../lib/tmdb";
 import styles from "../styles/episode-selector.module.scss";
@@ -14,9 +15,7 @@ const EpisodeSelector = ({
   seasons?: number;
   showHeading?: boolean;
 }) => {
-  const [searchParams] = useSearchParams();
-  const submit = useSubmit();
-  const query = searchParams.get("season") || 1;
+  const [query, setQuery] = useState(1);
   const { data } = useFetch<TVSeasons>(
     `tv/${id}/season/${query}`,
     ({ signal }) => {
@@ -32,7 +31,7 @@ const EpisodeSelector = ({
     const target = e.currentTarget;
     const formData = new FormData(target);
     const seasonNumber = formData.get("season") as string;
-    if (seasonNumber) submit(target, { replace: true });
+    if (seasonNumber) setQuery(+seasonNumber);
   };
 
   return (
