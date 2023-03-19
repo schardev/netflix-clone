@@ -41,7 +41,7 @@
 
   p,
   span {
-    font-size: var(--step--1);
+    font-size: var(--font-size--1);
     color: #999;
   }
 
@@ -71,7 +71,7 @@
 
     h3 {
       color: hsl(0, 0%, 90%);
-      font-size: var(--step--1);
+      font-size: var(--font-size--1);
     }
   }
 }

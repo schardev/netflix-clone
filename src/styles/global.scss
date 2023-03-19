@@ -20,34 +20,23 @@
   /* Fonts */
   --ff-primary: Inter, sans-serif;
 
-  $font-config: (
-    "min-vw": $width-xs,
-    "max-vw": $width-xxl,
-    "min-fs": 16px,
-    "max-fs": 20px,
-    "min-ratio": 1.2,
-    "max-ratio": 1.333,
-    "min-step": 2,
-    "max-step": 5,
-  );
-
-  @include generate-font-scales($font-config);
+  /* postcss-modular-type-generate */
 }
 
 h1 {
-  font-size: var(--step-4);
+  font-size: var(--font-size-4);
 }
 
 h2 {
-  font-size: var(--step-3);
+  font-size: var(--font-size-3);
 }
 
 h3 {
-  font-size: var(--step-2);
+  font-size: var(--font-size-2);
 }
 
 h4 {
-  font-size: var(--step-1);
+  font-size: var(--font-size-1);
 }
 
 h1,
@@ -64,12 +53,12 @@ html {
 body {
   background-color: var(--color-background);
   font-family: var(--ff-primary);
-  font-size: var(--step-0);
+  font-size: var(--font-size-0);
   color: var(--color-primary);
   margin: 0 auto;
 
   @include for("tablet-up") {
-    font-size: var(--step-1);
+    font-size: var(--font-size-1);
   }
 }
 

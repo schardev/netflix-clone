@@ -1,8 +1,8 @@
 module.exports = {
   plugins: [
-    require('postcss-modular-type')({
-      prefix: 'step-'
+    require("postcss-modular-type")({
+      insertMinMaxFontAsVariables: true,
     }),
-    require("autoprefixer")
+    require("autoprefixer"),
   ],
 };

@@ -12,7 +12,7 @@
   margin-bottom: 2em;
 
   @include for("tablet-up") {
-    font-size: var(--step-0);
+    font-size: var(--font-size-0);
   }
 
   input {

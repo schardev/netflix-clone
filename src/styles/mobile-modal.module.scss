@@ -21,7 +21,7 @@
   display: grid;
   grid-template-columns: 1fr 3fr;
   gap: 1em;
-  font-size: var(--fs-min--1);
+  font-size: var(--font-size-min--1);
 
   &__img {
     aspect-ratio: 2/3;
@@ -36,7 +36,7 @@
 
   &__details {
     h4 {
-      font-size: var(--step-0);
+      font-size: var(--font-size-0);
       width: calc(100% - 1.5em); // to avoid overlapping the close icon
     }
 
@@ -69,7 +69,7 @@
     display: flex;
     justify-content: space-around;
     padding: 0 1.5rem;
-    font-size: var(--fs-min--2);
+    font-size: var(--font-size-min--2);
 
     li {
       text-align: center;

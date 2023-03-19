@@ -58,7 +58,7 @@
     display: flex;
     gap: $gap;
     flex-wrap: wrap;
-    font-size: var(--step--2);
+    font-size: var(--font-size--2);
 
     span:not(:first-child)::before {
       content: "•";
@@ -72,11 +72,11 @@
   line-height: 1.2;
 
   h2 {
-    font-size: var(--step-0);
+    font-size: var(--font-size-0);
   }
 
   span {
-    font-size: var(--step--1);
+    font-size: var(--font-size--1);
   }
 
   span + span {
@@ -124,7 +124,7 @@
   flex: 1;
 
   button {
-    font-size: var(--fs-max-0);
+    font-size: var(--font-size-max-0);
     background: transparent;
     border: none;
   }
@@ -151,12 +151,12 @@
 
   span,
   p {
-    font-size: var(--step--1);
+    font-size: var(--font-size--1);
   }
 
   &__left {
     h2 {
-      font-size: var(--step-1);
+      font-size: var(--font-size-1);
     }
 
     span + span {
@@ -179,10 +179,10 @@
 }
 
 .big-modal-info-about {
-  font-size: var(--step--1);
+  font-size: var(--font-size--1);
 
   h2 {
-    font-size: var(--step-0);
+    font-size: var(--font-size-0);
     font-weight: 400;
     span {
       font-weight: 600;
@@ -202,14 +202,14 @@
   }
 
   h2 {
-    font-size: var(--step-0);
+    font-size: var(--font-size-0);
     margin-bottom: 1em;
   }
 
   .episodes-section {
     form {
       margin-left: auto;
-      font-size: var(--fs-max-0);
+      font-size: var(--font-size-max-0);
     }
   }
 
@@ -234,7 +234,7 @@
       :global(.video-frame) {
         margin: 0;
         span {
-          font-size: var(--step--1);
+          font-size: var(--font-size--1);
         }
       }
     }
@@ -265,7 +265,7 @@
   }
 
   &-runtime {
-    font-size: var(--step-0);
+    font-size: var(--font-size-0);
   }
 
   &-title {

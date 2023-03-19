@@ -108,7 +108,7 @@
   }
 
   p {
-    font-size: var(--step-0);
+    font-size: var(--font-size-0);
   }
 
   > *:not(:first-child) {
@@ -128,7 +128,7 @@
   &__genre {
     display: flex;
     gap: 0.5em;
-    font-size: var(--fs-min--2);
+    font-size: var(--font-size-min--2);
 
     li:not(:first-child)::before {
       // We aren't using list-style-type because firefox and chrome has
@@ -145,7 +145,7 @@
   justify-content: space-evenly;
   align-items: center;
   width: 80%;
-  font-size: var(--fs-min--1);
+  font-size: var(--font-size-min--1);
   user-select: none;
 
   @include for("tablet-up") {
@@ -173,7 +173,7 @@
 
       @include for("tablet-up") {
         background-color: hsla(0, 0%, 40%, 0.7);
-        font-size: var(--step-0);
+        font-size: var(--font-size-0);
         font-weight: 600;
       }
     }

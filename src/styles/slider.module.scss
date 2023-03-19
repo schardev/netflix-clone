@@ -26,7 +26,7 @@
 
   h2 {
     text-transform: capitalize;
-    font-size: var(--step-0);
+    font-size: var(--font-size-0);
     margin-bottom: 1em;
 
     @include for("tablet-up") {

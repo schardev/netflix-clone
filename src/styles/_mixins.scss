@@ -83,36 +83,3 @@ $media-queries: (
     }
   }
 }
-
-/* Ref: https://utopia.fyi/blog/clamp/ */
-@mixin generate-font-scales($font-config) {
-  $minw: util.rem(map.get($font-config, "min-vw"));
-  $maxw: util.rem(map.get($font-config, "max-vw"));
-  $minfs: util.rem(map.get($font-config, "min-fs"));
-  $maxfs: util.rem(map.get($font-config, "max-fs"));
-  $minr: map.get($font-config, "min-ratio");
-  $maxr: map.get($font-config, "max-ratio");
-  $mins: map.get($font-config, "min-step");
-  $maxs: map.get($font-config, "max-step");
-
-  @for $step from -$mins through $maxs {
-    $min-ratio: math.pow($minr, $step);
-    $max-ratio: math.pow($maxr, $step);
-
-    // round the number to 2 decimal point
-    // (https://css-tricks.com/snippets/sass/fix-number-n-digits/)
-    $final-min-size: util.to-fixed($minfs * $min-ratio, 2);
-    $final-max-size: util.to-fixed($maxfs * $max-ratio, 2);
-    --fs-min-#{$step}: #{$final-min-size};
-    --fs-max-#{$step}: #{$final-max-size};
-
-    $slope: math.div(($final-max-size - $final-min-size), ($maxw - $minw));
-    $yIntersection: (-1 * $minw * $slope) + $final-min-size;
-
-    --step-#{$step}: clamp(
-      var(--fs-min-#{$step}),
-      #{util.to-fixed($yIntersection, 2)} + #{util.to-fixed($slope * 100vw, 2)},
-      var(--fs-max-#{$step})
-    );
-  }
-}
