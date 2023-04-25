@@ -1,6 +1,6 @@
 module.exports = {
   plugins: [
-    require("postcss-modular-type")({
+    require("css-modular-type")({
       insertMinMaxFontAsVariables: true,
     }),
     require("autoprefixer"),
