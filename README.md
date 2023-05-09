@@ -68,7 +68,7 @@ https://user-images.githubusercontent.com/51372520/226106086-2d7e4865-42ee-4771-
 1. First clone the project:
 
 ```bash
-git clone https://github.com/saurabhchardereal/nfx
+git clone https://github.com/schardev/nfx
 ```
 
 2. Go to project directory and install packages:
