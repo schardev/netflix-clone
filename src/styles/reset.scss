@@ -1,0 +1,157 @@
+/**
+ * 1 - Setting `box-sizing` on `html` and then inheriting it from child nodes is
+ * a better practice as it can modified if we wish to use a different box-sizing
+ * option later.
+ * Ref: https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+ *
+ * 2 - Informs useragent stylesheets about system color scheme preferences and
+ * apply respective styles
+ * Ref: https://github.com/w3c/csswg-drafts/issues/3299
+ *
+ * 3 - Prevent adjustments of font size after orientation changes in iOS.
+ * Ref: https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/
+ */
+html {
+  box-sizing: border-box; // 1
+  color-scheme: light dark; // 2
+  text-size-adjust: none; // 3
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+}
+
+/**
+ * Also make sure we have a consistent `margin` and `padding` across the page
+ */
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+/**
+ * Accessible line height
+ *
+ * Ref: https://developer.mozilla.org/en-US/docs/Web/CSS/line-height#accessibility_concerns
+ */
+body {
+  line-height: 1.5;
+}
+
+/**
+ * Since input elements (and buttons) don't inherit the parent font properties, make it so to
+ * avoid inconsistent fonts styles.
+ */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/**
+ * Clickable elements should indicate it properly via cursor
+ */
+button,
+select,
+summary,
+[role="button"] {
+  cursor: pointer;
+}
+
+/**
+ * 1 - Images are `inline` by default even though most of the time the usecase will
+ * expect them to behave as `block`. Set it as `block` to avoid the hassel.
+ *
+ * 2 - Also avoid overflowing.
+ */
+canvas,
+iframe,
+img,
+picture,
+svg,
+video {
+  display: block; // 1
+  max-width: 100%; // 2
+}
+
+/**
+ * I like to state explicitly when I want to use list bullets
+*/
+ul,
+ol {
+  list-style: none;
+}
+
+/**
+ * Break long words/strings to stop text from overflowing
+*/
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/**
+ * Remove all animations, transitions and smooth scroll for people that prefer
+ * not to see them.
+ *
+ * Ref: https://piccalil.li/blog/a-modern-css-reset/
+ */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/**
+ * If the user hasn't made any preference known, apply below styles.
+ */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Ref: https://css-tricks.com/fixing-smooth-scrolling-with-find-on-page */
+  html:focus-within {
+    scroll-behavior: smooth;
+  }
+}
+
+/**
+ * `.hidden` - Hide element in an accessible way
+ * `.visually-hidden` - Only show the hidden element on focus/active state (e.g, button)
+ *
+ * Ref: https://css-tricks.com/comparing-various-ways-to-hide-things-in-css/
+ */
+%hidden {
+  /* Removes element from normal document flow */
+  position: absolute;
+  /* Some screen readers ignores element with 0px height/width, so set it to
+  the next lowest value */
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  /* To hide that 1px square we got after setting width/height to 1px */
+  clip-path: inset(50%);
+  /* Preserve white-space even if hidden (for screen readers) */
+  white-space: nowrap;
+  padding: 0;
+  border: 0;
+}
+
+.hidden {
+  @extend %hidden;
+}
+
+.visually-hidden:not(:focus):not(:active) {
+  @extend %hidden;
+}
